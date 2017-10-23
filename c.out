@@ -1,0 +1,11 @@
+mode: set
+_/../../money/importer.go:10.49,14.16 3 1
+_/../../money/importer.go:19.2,23.6 3 1
+_/../../money/importer.go:35.2,35.16 1 1
+_/../../money/importer.go:14.16,17.3 2 1
+_/../../money/importer.go:23.6,26.20 2 1
+_/../../money/importer.go:32.3,32.36 1 1
+_/../../money/importer.go:26.20,27.9 1 1
+_/../../money/importer.go:28.4,28.24 1 1
+_/../../money/importer.go:28.24,30.4 1 1
+_/../../money/money.go:8.13,14.2 4 0

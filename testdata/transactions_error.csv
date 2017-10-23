@@ -1,0 +1,2 @@
+BANK ID,Account Number,Account Type,Balance,Start Date,End Date,Transaction Type,Transaction Date,Transaction Amount,Transaction ID, Transaction Description
+1234567,555555555,CHECKING,1000.07,2017-01-01,2017-10-22,DEBIT,2017-01-01,-22.50,1,BP Gas Station,1
