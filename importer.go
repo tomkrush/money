@@ -2,23 +2,22 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"io"
 	"os"
 )
 
-func importTransactions(path string) [][]string {
+func importTransactions(path string) ([][]string, error) {
 	file, err := os.Open(path)
-	records := make([]([]string), 0)
 
 	if err != nil {
-		fmt.Println("Error: ", err)
-		return records
+		return nil, err
 	}
 
 	defer file.Close()
 
 	reader := csv.NewReader(file)
+
+	records := make([]([]string), 0)
 
 	for {
 		record, err := reader.Read()
@@ -26,11 +25,11 @@ func importTransactions(path string) [][]string {
 		if err == io.EOF {
 			break
 		} else if err != nil {
-			fmt.Println("Error: ", err)
+			return nil, err
 		}
 
 		records = append(records, record)
 	}
 
-	return records
+	return records, nil
 }
