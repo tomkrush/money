@@ -9,7 +9,7 @@ import (
 
 func importTransactions(path string) [][]string {
 	file, err := os.Open(path)
-	records := make([][]string, 0)
+	records := make([]([]string), 0)
 
 	if err != nil {
 		fmt.Println("Error: ", err)
