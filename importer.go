@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func importTransactions(path string) ([][]string, error) {
+func importTransactions(path string) ([]Transaction, error) {
 	file, err := os.Open(path)
 
 	if err != nil {
@@ -17,10 +17,10 @@ func importTransactions(path string) ([][]string, error) {
 
 	reader := csv.NewReader(file)
 
-	records := make([]([]string), 0)
+	transactions := make([]Transaction, 0)
 
 	for {
-		record, err := reader.Read()
+		_, err := reader.Read()
 
 		if err == io.EOF {
 			break
@@ -28,8 +28,8 @@ func importTransactions(path string) ([][]string, error) {
 			return nil, err
 		}
 
-		records = append(records, record)
+		transactions = append(transactions, Transaction{})
 	}
 
-	return records, nil
+	return transactions, nil
 }

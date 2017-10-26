@@ -3,10 +3,10 @@ package main
 import "testing"
 
 func TestImporter(t *testing.T) {
-	records, _ := importTransactions("testdata/transactions.csv")
+	transactions, _ := importTransactions("testdata/transactions.csv")
 
-	if len(records) == 0 {
-		t.Errorf("Expected to import %v, but only got %v", 8, len(records))
+	if len(transactions) == 0 {
+		t.Errorf("Expected to import %v, but only got %v", 8, len(transactions))
 	}
 }
 
