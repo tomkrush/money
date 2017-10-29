@@ -44,7 +44,7 @@ func TestFirstRecordData(t *testing.T) {
 	}
 
 	if transaction.Balance != balance {
-		t.Errorf("Expected balance %s, but only got %s", balance, transaction.Balance)
+		t.Errorf("Expected balance %d, but only got %d", balance, transaction.Balance)
 	}
 
 	if transaction.StartDate != startDate {
@@ -64,7 +64,7 @@ func TestFirstRecordData(t *testing.T) {
 	}
 
 	if transaction.Amount != amount {
-		t.Errorf("Expected amount %s, but only got %s", amount, transaction.Amount)
+		t.Errorf("Expected amount %d, but only got %d", amount, transaction.Amount)
 	}
 
 	if transaction.UniqueID != uniqueID {
@@ -80,7 +80,7 @@ func TestImporterNoPath(t *testing.T) {
 	_, err := importTransactions("")
 
 	if err.Error() != "open : no such file or directory" {
-		t.Error("Expected error because no path provided. %s", err.Error())
+		t.Errorf("Expected error because no path provided. %s", err.Error())
 	}
 }
 
@@ -88,6 +88,6 @@ func TestImporterIncorrectFields(t *testing.T) {
 	_, err := importTransactions("testdata/transactions_error.csv")
 
 	if err.Error() != "line 2, column 0: wrong number of fields in line" {
-		t.Error("Expected error because no row field count different than header field count. %s", err.Error())
+		t.Errorf("Expected error because no row field count different than header field count. %s", err.Error())
 	}
 }
