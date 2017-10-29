@@ -10,5 +10,8 @@ func main() {
 	flag.Parse()
 
 	records, _ := importTransactionsCSV(*path)
-	fmt.Println(records)
+	ledger := Ledger{records}
+	sum := ledger.Sum()
+
+	fmt.Println(sum.CentsToDollars())
 }
