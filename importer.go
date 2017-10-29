@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"io"
 	"os"
+	"strconv"
 )
 
 func importTransactions(path string) ([]Transaction, error) {
@@ -19,8 +20,15 @@ func importTransactions(path string) ([]Transaction, error) {
 
 	transactions := make([]Transaction, 0)
 
+	skippedHeader := false
+
 	for {
-		_, err := reader.Read()
+		record, err := reader.Read()
+
+		if skippedHeader == false {
+			skippedHeader = true
+			continue
+		}
 
 		if err == io.EOF {
 			break
@@ -28,7 +36,33 @@ func importTransactions(path string) ([]Transaction, error) {
 			return nil, err
 		}
 
-		transactions = append(transactions, Transaction{})
+		transaction := Transaction{}
+		transaction.BankID = record[0]
+		transaction.AccountNumber = record[1]
+		transaction.AccountType = record[2]
+		balance, err := strconv.ParseFloat(record[3], 64)
+		transaction.Balance = int(balance * 100)
+
+		if err != nil {
+			return nil, err
+		}
+
+		transaction.StartDate = record[4]
+		transaction.EndDate = record[5]
+		transaction.Type = record[6]
+		transaction.Date = record[7]
+
+		amount, err := strconv.ParseFloat(record[8], 64)
+		transaction.Amount = int(amount * 100)
+
+		if err != nil {
+			return nil, err
+		}
+
+		transaction.UniqueID = record[9]
+		transaction.Description = record[10]
+
+		transactions = append(transactions, transaction)
 	}
 
 	return transactions, nil

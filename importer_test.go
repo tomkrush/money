@@ -1,12 +1,78 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestImporter(t *testing.T) {
 	transactions, _ := importTransactions("testdata/transactions.csv")
 
 	if len(transactions) == 0 {
 		t.Errorf("Expected to import %v, but only got %v", 8, len(transactions))
+	}
+}
+
+func TestFirstRecordData(t *testing.T) {
+	transactions, _ := importTransactions("testdata/transactions.csv")
+	transaction := transactions[0]
+	bankID := "1234567"
+	accountNumber := "555555555"
+	accountType := "CHECKING"
+	balance := 100007
+	startDate := "2017-01-01"
+	endDate := "2017-10-22"
+	transactionType := "DEBIT"
+	date := "2017-01-01"
+	amount := -2250
+	uniqueID := "1"
+	description := "BP Gas Station"
+
+	if transaction.BankID != bankID {
+		t.Errorf("Expected bank id %s, but only got %s", bankID, transaction.BankID)
+	}
+
+	if transaction.AccountNumber != accountNumber {
+		t.Errorf("Expected account number %s, but only got %s", accountNumber, transaction.AccountNumber)
+	}
+
+	if transaction.AccountType != accountType {
+		t.Errorf("Expected account type %s, but only got %s", accountType, transaction.AccountType)
+	}
+
+	if transaction.AccountType != accountType {
+		t.Errorf("Expected account type %s, but only got %s", accountType, transaction.AccountType)
+	}
+
+	if transaction.Balance != balance {
+		t.Errorf("Expected balance %s, but only got %s", balance, transaction.Balance)
+	}
+
+	if transaction.StartDate != startDate {
+		t.Errorf("Expected start date %s, but only got %s", startDate, transaction.StartDate)
+	}
+
+	if transaction.EndDate != endDate {
+		t.Errorf("Expected end date %s, but only got %s", endDate, transaction.EndDate)
+	}
+
+	if transaction.Type != transactionType {
+		t.Errorf("Expected transaction type %s, but only got %s", transactionType, transaction.Type)
+	}
+
+	if transaction.Date != date {
+		t.Errorf("Expected date %s, but only got %s", date, transaction.Date)
+	}
+
+	if transaction.Amount != amount {
+		t.Errorf("Expected amount %s, but only got %s", amount, transaction.Amount)
+	}
+
+	if transaction.UniqueID != uniqueID {
+		t.Errorf("Expected unique id %s, but only got %s", uniqueID, transaction.UniqueID)
+	}
+
+	if transaction.Description != description {
+		t.Errorf("Expected description id %s, but only got %s", description, transaction.Description)
 	}
 }
 

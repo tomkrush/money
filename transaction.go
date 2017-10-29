@@ -7,12 +7,12 @@ type Transaction struct {
 	BankID        string
 	AccountNumber string
 	AccountType   string
-	Balance       string
+	Balance       int
 	StartDate     string
 	EndDate       string
 	Type          string
 	Date          string
-	Amount        string
+	Amount        int
 	UniqueID      string
 	Description   string
 }
