@@ -48,8 +48,18 @@ func importTransactions(path string) ([]Transaction, error) {
 			return nil, err
 		}
 
-		transaction.StartDate = record[4]
-		transaction.EndDate = record[5]
+		transaction.StartDate, err = time.Parse("2006-01-02", record[4])
+
+		if err != nil {
+			return nil, err
+		}
+
+		transaction.EndDate, err = time.Parse("2006-01-02", record[5])
+
+		if err != nil {
+			return nil, err
+		}
+
 		transaction.Type = record[6]
 
 		transaction.Date, err = time.Parse("2006-01-02", record[7])

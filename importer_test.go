@@ -20,8 +20,8 @@ func TestFirstRecordData(t *testing.T) {
 	accountNumber := "555555555"
 	accountType := "CHECKING"
 	balance := 100007
-	startDate := "2017-01-01"
-	endDate := "2017-10-22"
+	startDate, _ := time.Parse("2006-01-02", "2017-01-01")
+	endDate, _ := time.Parse("2006-01-02", "2017-10-22")
 	transactionType := "DEBIT"
 	date, _ := time.Parse("2006-01-02", "2017-01-01")
 	amount := -2250

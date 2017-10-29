@@ -10,8 +10,8 @@ type Transaction struct {
 	AccountNumber string
 	AccountType   string
 	Balance       int
-	StartDate     string
-	EndDate       string
+	StartDate     time.Time
+	EndDate       time.Time
 	Type          string
 	Date          time.Time
 	Amount        int
