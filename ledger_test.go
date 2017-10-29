@@ -50,7 +50,7 @@ func TestLedger_sum(t *testing.T) {
 			l := &Ledger{
 				transactions: tt.fields.transactions,
 			}
-			if got := l.sum(); !reflect.DeepEqual(got, tt.want) {
+			if got := l.Sum(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Ledger.sum() = %v, want %v", got, tt.want)
 			}
 		})

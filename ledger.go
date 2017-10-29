@@ -7,7 +7,7 @@ type Ledger struct {
 	transactions []Transaction
 }
 
-func (l *Ledger) sum() Currency {
+func (l *Ledger) Sum() Currency {
 	total := 0
 
 	for _, t := range l.transactions {
