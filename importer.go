@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"time"
 )
 
 func importTransactions(path string) ([]Transaction, error) {
@@ -50,7 +51,12 @@ func importTransactions(path string) ([]Transaction, error) {
 		transaction.StartDate = record[4]
 		transaction.EndDate = record[5]
 		transaction.Type = record[6]
-		transaction.Date = record[7]
+
+		transaction.Date, err = time.Parse("2006-01-02", record[7])
+
+		if err != nil {
+			return nil, err
+		}
 
 		amount, err := strconv.ParseFloat(record[8], 64)
 		transaction.Amount = int(amount * 100)

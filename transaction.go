@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 // Transaction is represents a US currency transaction.
 // It is intented that all transactions reference a bank account.
 // The amount is measured in Penny's.
@@ -11,7 +13,7 @@ type Transaction struct {
 	StartDate     string
 	EndDate       string
 	Type          string
-	Date          string
+	Date          time.Time
 	Amount        int
 	UniqueID      string
 	Description   string

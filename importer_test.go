@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 )
 
 func TestImporter(t *testing.T) {
@@ -22,7 +23,7 @@ func TestFirstRecordData(t *testing.T) {
 	startDate := "2017-01-01"
 	endDate := "2017-10-22"
 	transactionType := "DEBIT"
-	date := "2017-01-01"
+	date, _ := time.Parse("2006-01-02", "2017-01-01")
 	amount := -2250
 	uniqueID := "1"
 	description := "BP Gas Station"
