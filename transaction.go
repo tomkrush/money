@@ -1,10 +1,17 @@
 package main
 
-import "time"
+import (
+	"strconv"
+	"time"
+)
 
 // Currency is the amount of dollars represented in pennies.
 type Currency struct {
 	Amount int
+}
+
+func (c *Currency) CentsToDollars() string {
+	return string('$') + strconv.FormatFloat(float64(c.Amount)/100, 'f', 2, 64)
 }
 
 // Transaction is the withdrawl and deposit of a currency from a
