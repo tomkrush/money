@@ -9,6 +9,6 @@ func main() {
 	path := flag.String("path", "", "Import CSV file from specified path")
 	flag.Parse()
 
-	records, _ := importTransactions(*path)
+	records, _ := importTransactionsCSV(*path)
 	fmt.Println(records)
 }

@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func importTransactions(path string) ([]Transaction, error) {
+func importTransactionsCSV(path string) ([]Transaction, error) {
 	file, err := os.Open(path)
 
 	if err != nil {
