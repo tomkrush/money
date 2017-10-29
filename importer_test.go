@@ -44,7 +44,7 @@ func TestFirstRecordData(t *testing.T) {
 		t.Errorf("Expected account type %s, but only got %s", accountType, transaction.AccountType)
 	}
 
-	if transaction.Balance != balance {
+	if transaction.Balance.Amount != balance {
 		t.Errorf("Expected balance %d, but only got %d", balance, transaction.Balance)
 	}
 
@@ -64,7 +64,7 @@ func TestFirstRecordData(t *testing.T) {
 		t.Errorf("Expected date %s, but only got %s", date, transaction.Date)
 	}
 
-	if transaction.Amount != amount {
+	if transaction.Amount.Amount != amount {
 		t.Errorf("Expected amount %d, but only got %d", amount, transaction.Amount)
 	}
 

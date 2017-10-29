@@ -42,7 +42,7 @@ func importTransactions(path string) ([]Transaction, error) {
 		transaction.AccountNumber = record[1]
 		transaction.AccountType = record[2]
 		balance, err := strconv.ParseFloat(record[3], 64)
-		transaction.Balance = int(balance * 100)
+		transaction.Balance = Currency{int(balance * 100)}
 
 		if err != nil {
 			return nil, err
@@ -69,7 +69,7 @@ func importTransactions(path string) ([]Transaction, error) {
 		}
 
 		amount, err := strconv.ParseFloat(record[8], 64)
-		transaction.Amount = int(amount * 100)
+		transaction.Amount = Currency{int(amount * 100)}
 
 		if err != nil {
 			return nil, err
