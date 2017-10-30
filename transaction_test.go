@@ -3,16 +3,6 @@ package main
 import "testing"
 import "time"
 
-func transactionsWithIDs(ids ...int) Transactions {
-	var transactions Transactions
-
-	for _, id := range ids {
-		transactions = append(transactions, Transaction{UniqueID: id})
-	}
-
-	return transactions
-}
-
 func createTransaction(uniqueID int, date string) Transaction {
 	timestamp, _ := time.Parse("2006-01-02", date)
 	return Transaction{UniqueID: uniqueID, Date: timestamp}
