@@ -75,7 +75,13 @@ func importTransactionsCSV(path string) ([]Transaction, error) {
 			return nil, err
 		}
 
-		transaction.UniqueID = record[9]
+		uniqueID, err := strconv.ParseInt(record[9], 10, 32)
+
+		if err != nil {
+			return nil, err
+		}
+
+		transaction.UniqueID = int(uniqueID)
 		transaction.Description = record[10]
 
 		transactions = append(transactions, transaction)

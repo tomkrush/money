@@ -28,7 +28,7 @@ type Transaction struct {
 	Type          string
 	Date          time.Time
 	Amount        Currency
-	UniqueID      string
+	UniqueID      int
 	Description   string
 }
 

@@ -25,7 +25,7 @@ func TestFirstRecordData(t *testing.T) {
 	transactionType := "DEBIT"
 	date, _ := time.Parse("2006-01-02", "2017-01-01")
 	amount := -2250
-	uniqueID := "1"
+	uniqueID := 1
 	description := "BP Gas Station"
 
 	if transaction.BankID != bankID {
