@@ -9,7 +9,7 @@ func main() {
 	path := flag.String("path", "", "Import CSV file from specified path")
 	flag.Parse()
 
-	transactions, _ := importTransactionsCSV(*path)
+	transactions, _ := ImportTransactionsCSV(*path)
 	ledger := Ledger{transactions}
 	sum := ledger.Sum()
 
