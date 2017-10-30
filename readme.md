@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/tomkrush/money-go.svg?token=szmPRjbmNEUcr8jqDYkc&branch=master)](https://travis-ci.com/tomkrush/money-go)
-
 ## Synopsis
 
 The money program is designed to help families with their finances. At the moment, this program only accepts CSV files with transactin data. The CSV parser right now only works with Capital One 360 CSV files. It may work with other csv files, but this has not been tested.
