@@ -31,3 +31,6 @@ type Transaction struct {
 	UniqueID      string
 	Description   string
 }
+
+// Transactions is a collection of type Transaction
+type Transactions []Transaction

@@ -4,7 +4,7 @@ package main
 // It is expected that an operation can be performed against the entire
 // set of transactions.
 type Ledger struct {
-	transactions []Transaction
+	transactions Transactions
 }
 
 // Sum acts on the Ledger type to aggregate the sum of all

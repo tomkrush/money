@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func transactionsWithAmounts(amounts ...int) []Transaction {
-	var transactions []Transaction
+func transactionsWithAmounts(amounts ...int) Transactions {
+	var transactions Transactions
 
 	for _, a := range amounts {
 		transactions = append(transactions, Transaction{Amount: Currency{a}})
@@ -17,7 +17,7 @@ func transactionsWithAmounts(amounts ...int) []Transaction {
 
 func TestLedger_sum(t *testing.T) {
 	type fields struct {
-		transactions []Transaction
+		transactions Transactions
 	}
 	tests := []struct {
 		name   string
