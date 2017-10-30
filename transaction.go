@@ -36,6 +36,12 @@ type Transaction struct {
 // Transactions is a collection of type Transaction
 type Transactions []Transaction
 
+// Sort exposes the StdLib Sort command without needing to import
+// the package.
+func (t *Transactions) Sort() {
+	sort.Sort(t)
+}
+
 func (t Transactions) Len() int {
 	return len(t)
 }
@@ -46,9 +52,4 @@ func (t Transactions) Swap(i, j int) {
 
 func (t Transactions) Less(i, j int) bool {
 	return t[i].UniqueID < t[j].UniqueID
-	// return t[i].Date.After(t[j].Date)
-}
-
-func (t *Transactions) Sort() {
-	sort.Sort(t)
 }
