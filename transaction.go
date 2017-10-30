@@ -1,6 +1,7 @@
 package main
 
 import (
+	"sort"
 	"strconv"
 	"time"
 )
@@ -34,3 +35,20 @@ type Transaction struct {
 
 // Transactions is a collection of type Transaction
 type Transactions []Transaction
+
+func (t Transactions) Len() int {
+	return len(t)
+}
+
+func (t Transactions) Swap(i, j int) {
+	t[i], t[j] = t[j], t[i]
+}
+
+func (t Transactions) Less(i, j int) bool {
+	return t[i].UniqueID < t[j].UniqueID
+	// return t[i].Date.After(t[j].Date)
+}
+
+func (t *Transactions) Sort() {
+	sort.Sort(t)
+}

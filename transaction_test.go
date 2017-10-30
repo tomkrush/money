@@ -27,3 +27,55 @@ func TestCurrency_CentsToDollars(t *testing.T) {
 		})
 	}
 }
+
+func transactionsWithIDs(ids ...int) Transactions {
+	var transactions Transactions
+
+	for _, id := range ids {
+		transactions = append(transactions, Transaction{UniqueID: id})
+	}
+
+	return transactions
+}
+
+func TestTransactions_Sort(t *testing.T) {
+	type fields struct {
+		Transactions
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   []int
+	}{
+		{
+			"Correct order of simple list",
+			fields{transactionsWithIDs(2, 1, 4, 3)},
+			[]int{1, 2, 3, 4},
+		},
+		{
+			"Correct order of offset list",
+			fields{transactionsWithIDs(102, 131, 422, 191)},
+			[]int{102, 131, 191, 422},
+		},
+		{
+			"Correct order with negative numbers",
+			fields{transactionsWithIDs(5, 10, 2, -10)},
+			[]int{-10, 2, 5, 10},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			transactions := tt.fields.Transactions
+
+			transactions.Sort()
+
+			for i, transaction := range transactions {
+				if tt.want[i] != transaction.UniqueID {
+
+					t.Errorf("Index of [%d] = %v, want %v", i, transaction.UniqueID, tt.want[i])
+				}
+			}
+		})
+	}
+}
