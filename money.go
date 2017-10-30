@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 )
 
 func main() {
@@ -11,8 +10,10 @@ func main() {
 
 	transactions, _ := ImportTransactionsCSV(*path)
 	transactions.Sort()
-	ledger := Ledger{transactions}
-	sum := ledger.Sum()
+	// ledger := Ledger{transactions}
+	// startingBalance := ledger.StartingBalance()
+	// sum := ledger.Sum()
 
-	fmt.Println("Account Total: ", sum.FormatToDollars())
+	// fmt.Println("Starting Balance: ", startingBalance.FormatToDollars())
+	// fmt.Println("Account Total: ", sum.FormatToDollars())
 }
