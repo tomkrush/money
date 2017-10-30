@@ -16,9 +16,6 @@ func transactionsWithAmounts(amounts ...int) Transactions {
 }
 
 func TestLedger_sum(t *testing.T) {
-	type fields struct {
-		transactions Transactions
-	}
 	tests := []struct {
 		name         string
 		transactions Transactions
