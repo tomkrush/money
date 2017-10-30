@@ -7,6 +7,8 @@ type Ledger struct {
 	transactions []Transaction
 }
 
+// Sum acts on the Ledger type to aggregate the sum of all
+// transaction amounts.
 func (l *Ledger) Sum() Currency {
 	total := 0
 
