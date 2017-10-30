@@ -51,5 +51,13 @@ func (t Transactions) Swap(i, j int) {
 }
 
 func (t Transactions) Less(i, j int) bool {
+	if t[i].Date.Before(t[j].Date) {
+		return true
+	}
+
+	if t[i].Date.After(t[j].Date) {
+		return false
+	}
+
 	return t[i].UniqueID < t[j].UniqueID
 }

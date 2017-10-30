@@ -1,6 +1,7 @@
 package main
 
 import "testing"
+import "time"
 
 func TestCurrency_CentsToDollars(t *testing.T) {
 	type fields struct {
@@ -38,6 +39,11 @@ func transactionsWithIDs(ids ...int) Transactions {
 	return transactions
 }
 
+func createTransaction(uniqueID int, date string) Transaction {
+	timestamp, _ := time.Parse("2006-01-02", date)
+	return Transaction{UniqueID: uniqueID, Date: timestamp}
+}
+
 func TestTransactions_Sort(t *testing.T) {
 	tests := []struct {
 		name         string
@@ -47,30 +53,33 @@ func TestTransactions_Sort(t *testing.T) {
 		{
 			"Correct order of simple list",
 			Transactions{
-				Transaction{UniqueID: 2},
-				Transaction{UniqueID: 1},
-				Transaction{UniqueID: 4},
-				Transaction{UniqueID: 3},
+				createTransaction(2, "2017-01-02"),
+				createTransaction(1, "2017-01-01"),
+				createTransaction(3, "2017-01-05"),
+				createTransaction(4, "2017-01-10"),
 			},
 			[]int{1, 2, 3, 4},
 		},
 		{
-			"Correct order of offset list",
+			"Correct order based on date. Out of order based on priority",
 			Transactions{
-				Transaction{UniqueID: 102},
-				Transaction{UniqueID: 131},
-				Transaction{UniqueID: 422},
-				Transaction{UniqueID: 191},
+				createTransaction(2, "2017-01-02"),
+				createTransaction(1, "2017-01-01"),
+				createTransaction(422, "2017-01-01"),
+				createTransaction(3, "2017-01-05"),
+				createTransaction(4, "2017-01-10"),
+				createTransaction(423, "2017-01-02"),
+				createTransaction(424, "2017-01-11"),
 			},
-			[]int{102, 131, 191, 422},
+			[]int{1, 422, 2, 423, 3, 4, 424},
 		},
 		{
 			"Correct order with negative numbers",
 			Transactions{
-				Transaction{UniqueID: 5},
-				Transaction{UniqueID: 10},
-				Transaction{UniqueID: 2},
-				Transaction{UniqueID: -10},
+				createTransaction(5, "2017-01-01"),
+				createTransaction(10, "2017-01-01"),
+				createTransaction(2, "2017-01-01"),
+				createTransaction(-10, "2017-01-01"),
 			},
 			[]int{-10, 2, 5, 10},
 		},
