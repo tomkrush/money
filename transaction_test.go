@@ -39,34 +39,46 @@ func transactionsWithIDs(ids ...int) Transactions {
 }
 
 func TestTransactions_Sort(t *testing.T) {
-	type fields struct {
-		Transactions
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		want   []int
+		name         string
+		transactions Transactions
+		want         []int
 	}{
 		{
 			"Correct order of simple list",
-			fields{transactionsWithIDs(2, 1, 4, 3)},
+			Transactions{
+				Transaction{UniqueID: 2},
+				Transaction{UniqueID: 1},
+				Transaction{UniqueID: 4},
+				Transaction{UniqueID: 3},
+			},
 			[]int{1, 2, 3, 4},
 		},
 		{
 			"Correct order of offset list",
-			fields{transactionsWithIDs(102, 131, 422, 191)},
+			Transactions{
+				Transaction{UniqueID: 102},
+				Transaction{UniqueID: 131},
+				Transaction{UniqueID: 422},
+				Transaction{UniqueID: 191},
+			},
 			[]int{102, 131, 191, 422},
 		},
 		{
 			"Correct order with negative numbers",
-			fields{transactionsWithIDs(5, 10, 2, -10)},
+			Transactions{
+				Transaction{UniqueID: 5},
+				Transaction{UniqueID: 10},
+				Transaction{UniqueID: 2},
+				Transaction{UniqueID: -10},
+			},
 			[]int{-10, 2, 5, 10},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			transactions := tt.fields.Transactions
+			transactions := tt.transactions
 
 			transactions.Sort()
 
