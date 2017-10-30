@@ -10,6 +10,7 @@ func main() {
 	flag.Parse()
 
 	transactions, _ := ImportTransactionsCSV(*path)
+	transactions.Sort()
 	ledger := Ledger{transactions}
 	sum := ledger.Sum()
 

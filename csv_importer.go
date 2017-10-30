@@ -9,7 +9,7 @@ import (
 )
 
 // ImportTransactionsCSV accepts a file path be imported as Transaction types.
-func ImportTransactionsCSV(path string) ([]Transaction, error) {
+func ImportTransactionsCSV(path string) (Transactions, error) {
 	file, err := os.Open(path)
 
 	if err != nil {
