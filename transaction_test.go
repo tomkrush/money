@@ -21,7 +21,7 @@ func TestCurrency_CentsToDollars(t *testing.T) {
 			currency := &Currency{
 				Amount: tt.fields.Amount,
 			}
-			if got := currency.CentsToDollars(); got != tt.want {
+			if got := currency.FormatToDollars(); got != tt.want {
 				t.Errorf("Currency.CentsToDollars() = %v, want %v", got, tt.want)
 			}
 		})

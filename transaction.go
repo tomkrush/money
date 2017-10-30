@@ -10,7 +10,7 @@ type Currency struct {
 	Amount int
 }
 
-func (c *Currency) CentsToDollars() string {
+func (c *Currency) FormatToDollars() string {
 	return string('$') + strconv.FormatFloat(float64(c.Amount)/100, 'f', 2, 64)
 }
 

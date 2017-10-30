@@ -13,5 +13,5 @@ func main() {
 	ledger := Ledger{records}
 	sum := ledger.Sum()
 
-	fmt.Println(sum.CentsToDollars())
+	fmt.Println(sum.FormatToDollars())
 }
