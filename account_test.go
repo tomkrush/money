@@ -49,7 +49,7 @@ func TestAccount_sum(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &Account{
-				transactions: tt.transactions,
+				Transactions: tt.transactions,
 			}
 			if got := l.Sum(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Ledger.Sum() = %v, want %v", got, tt.want)
@@ -86,7 +86,7 @@ func TestAccount_StartingBalance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &Account{
-				transactions: tt.transactions,
+				Transactions: tt.transactions,
 			}
 			if got := l.StartingBalance(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Ledger.StartingBalance() = %v, want %v", got, tt.want)

@@ -32,3 +32,32 @@ func (t Transactions) Less(i, j int) bool {
 
 	return t[i].UniqueID < t[j].UniqueID
 }
+
+// Separate takes a list of transactions and groups them by account.
+// This is done by looking at the accountNumber on each transaction.
+func (t *Transactions) SplitIntoAccounts(transactions Transactions) Accounts {
+	var accounts Accounts
+
+	for _, t := range transactions {
+		accountNumber := t.AccountNumber
+		account := Account{}
+		account.AccountNumber = t.AccountNumber
+		create := true
+
+		for _, a := range accounts {
+			if a.AccountNumber == accountNumber {
+				create = false
+				account = a
+				break
+			}
+		}
+
+		account.Transactions = append(account.Transactions, t)
+
+		if create {
+			accounts = append(accounts, account)
+		}
+	}
+
+	return accounts
+}
