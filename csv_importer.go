@@ -42,12 +42,8 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 		transaction.BankID = record[0]
 		transaction.AccountNumber = record[1]
 		transaction.AccountType = record[2]
-		balance, err := strconv.ParseFloat(record[3], 64)
-		transaction.Balance = Currency{int(balance * 100)}
 
-		if err != nil {
-			return nil, err
-		}
+		transaction.Balance.FromDollars(record[3])
 
 		transaction.StartDate, err = time.Parse("2006-01-02", record[4])
 
@@ -69,12 +65,7 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 			return nil, err
 		}
 
-		amount, err := strconv.ParseFloat(record[8], 64)
-		transaction.Amount = Currency{int(amount * 100)}
-
-		if err != nil {
-			return nil, err
-		}
+		transaction.Amount.FromDollars(record[8])
 
 		uniqueID, err := strconv.ParseInt(record[9], 10, 32)
 
