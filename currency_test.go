@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCurrency_CentsToDollars(t *testing.T) {
 	type fields struct {
@@ -23,6 +25,32 @@ func TestCurrency_CentsToDollars(t *testing.T) {
 			}
 			if got := currency.FormatToDollars(); got != tt.want {
 				t.Errorf("Currency.CentsToDollars() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestCurrency_FromDollars(t *testing.T) {
+	type args struct {
+		dollars int
+	}
+	tests := []struct {
+		name    string
+		dollars string
+		want    int
+	}{
+		{"Convert 2193.00", "2193.00", 219300},
+		{"Convert 2193.97", "2193.97", 219397},
+		{"Convert 2193.97", "2193", 219300},
+		{"Convert 2193.97", "-1046", -104600},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Currency{}
+			c.FromDollars(tt.dollars)
+
+			if got := c.Amount; got != tt.want {
+				t.Errorf("Currency.FromDollars() = %v, want %v", got, tt.want)
 			}
 		})
 	}
