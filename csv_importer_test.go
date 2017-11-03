@@ -69,7 +69,7 @@ func TestFirstRecordData(t *testing.T) {
 	}
 
 	if transaction.UniqueID != uniqueID {
-		t.Errorf("Expected unique id %s, but only got %s", uniqueID, transaction.UniqueID)
+		t.Errorf("Expected unique id %d, but only got %d", uniqueID, transaction.UniqueID)
 	}
 
 	if transaction.Description != description {
