@@ -29,12 +29,6 @@ func main() {
 		starting := account.StartingBalance()
 
 		table.Append([]string{accountNumber, starting.FormatToDollars(), amount.FormatToDollars()})
-
-		// if accountNumber == "5555555555" {
-		// 	for _, t := range account.Transactions {
-		// 		fmt.Println(t.Balance.FormatToDollars(), t.Amount.FormatToDollars())
-		// 	}
-		// }
 	}
 
 	table.Render() // Send output
