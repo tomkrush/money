@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 func main() {
@@ -10,26 +13,29 @@ func main() {
 	flag.Parse()
 
 	transactions, _ := ImportTransactionsCSV(*path)
-	// transactions.Sort()
 	accounts := transactions.SplitIntoAccounts()
+
+	fmt.Println("# Account Balances")
+	fmt.Println()
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Account Number", "Starting Balance", "Ending Balance"})
+	table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
+	table.SetCenterSeparator("|")
+	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	for accountNumber, account := range accounts {
 		amount := account.Sum()
 		starting := account.StartingBalance()
+
+		table.Append([]string{accountNumber, starting.FormatToDollars(), amount.FormatToDollars()})
 
 		// if accountNumber == "5555555555" {
 		// 	for _, t := range account.Transactions {
 		// 		fmt.Println(t.Balance.FormatToDollars(), t.Amount.FormatToDollars())
 		// 	}
 		// }
-
-		fmt.Println(accountNumber, starting.FormatToDollars(), amount.FormatToDollars())
 	}
 
-	// ledger := Ledger{transactions}
-	// startingBalance := ledger.StartingBalance()
-	// sum := ledger.Sum()
-
-	// fmt.Println("Starting Balance: ", startingBalance.FormatToDollars())
-	// fmt.Println("Account Total: ", sum.FormatToDollars())
+	table.Render() // Send output
 }
