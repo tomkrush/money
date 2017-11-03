@@ -35,17 +35,27 @@ func (t Transactions) Less(i, j int) bool {
 
 // SplitIntoAccounts takes a list of transactions and groups them by account.
 // This is done by looking at the accountNumber on each transaction.
-func (t *Transactions) SplitIntoAccounts(transactions Transactions) Accounts {
+func (t Transactions) SplitIntoAccounts() Accounts {
 	accounts := make(Accounts)
 
-	for _, t := range transactions {
-		accountNumber := t.AccountNumber
+	for _, item := range t {
+		accountNumber := item.AccountNumber
 		account := accounts[accountNumber]
-		account.AccountNumber = t.AccountNumber
+		account.Transactions = append(account.Transactions, item)
 		accounts[accountNumber] = account
-
-		account.Transactions = append(account.Transactions, t)
 	}
 
 	return accounts
+}
+
+// Sum acts on the Ledger type to aggregate the sum of all
+// transaction amounts.
+func (t Transactions) Sum() Currency {
+	total := 0
+
+	for _, item := range t {
+		total += item.Amount.Amount
+	}
+
+	return Currency{total}
 }

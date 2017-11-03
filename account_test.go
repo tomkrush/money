@@ -14,7 +14,7 @@ func TestAccount_sum(t *testing.T) {
 		{
 			"Sum of transactions should be 1000",
 			Transactions{
-				Transaction{Amount: Currency{500}},
+				Transaction{Amount: Currency{500}, Balance: Currency{500}},
 				Transaction{Amount: Currency{500}},
 			},
 			Currency{1000},
@@ -22,7 +22,7 @@ func TestAccount_sum(t *testing.T) {
 		{
 			"Sum of transactions should be 750",
 			Transactions{
-				Transaction{Amount: Currency{250}},
+				Transaction{Amount: Currency{250}, Balance: Currency{250}},
 				Transaction{Amount: Currency{250}},
 				Transaction{Amount: Currency{250}},
 			},
@@ -31,7 +31,7 @@ func TestAccount_sum(t *testing.T) {
 		{
 			"Sum of transactions should be 90",
 			Transactions{
-				Transaction{Amount: Currency{5}},
+				Transaction{Amount: Currency{5}, Balance: Currency{5}},
 				Transaction{Amount: Currency{10}},
 				Transaction{Amount: Currency{75}},
 			},
@@ -40,7 +40,7 @@ func TestAccount_sum(t *testing.T) {
 		{
 			"Sum of transactions should be 1",
 			Transactions{
-				Transaction{Amount: Currency{1}},
+				Transaction{Amount: Currency{1}, Balance: Currency{1}},
 			},
 			Currency{1},
 		},
@@ -48,11 +48,11 @@ func TestAccount_sum(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &Account{
+			a := &Account{
 				Transactions: tt.transactions,
 			}
-			if got := l.Sum(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Ledger.Sum() = %v, want %v", got, tt.want)
+			if got := a.Sum(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Account.Sum() = %v, want %v", got, tt.want)
 			}
 		})
 	}

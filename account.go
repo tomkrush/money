@@ -1,18 +1,14 @@
 package main
 
 type Account struct {
-	Transactions  Transactions
-	AccountNumber string
+	Transactions Transactions
 }
 
-func (a *Account) Sum() Currency {
-	total := 0
+func (a Account) Sum() Currency {
+	startingBalance := a.StartingBalance().Amount
+	total := a.Transactions.Sum().Amount
 
-	for _, t := range a.Transactions {
-		total += t.Amount.Amount
-	}
-
-	return Currency{total}
+	return Currency{startingBalance + total}
 }
 
 func (a *Account) StartingBalance() Currency {
