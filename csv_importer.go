@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"io"
+	"money/currency"
 	"os"
 	"strconv"
 	"time"
@@ -43,7 +44,7 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 		transaction.AccountNumber = record[1]
 		transaction.AccountType = record[2]
 
-		transaction.Balance.FromDollars(record[3])
+		transaction.Balance = currency.NewFromDollars(record[3])
 
 		transaction.StartDate, err = time.Parse("2006-01-02", record[4])
 
@@ -65,7 +66,7 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 			return nil, err
 		}
 
-		transaction.Amount.FromDollars(record[8])
+		transaction.Amount = currency.NewFromDollars(record[8])
 
 		uniqueID, err := strconv.ParseInt(record[9], 10, 32)
 
