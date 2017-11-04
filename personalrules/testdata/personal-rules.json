@@ -4,7 +4,7 @@
         {
             "find": "Fast Food",
             "replace": "Fast Food (Tom)",
-            "contains": [
+            "some": [
                 "Naperville",
                 "Aurora",
                 "Warrenville",
@@ -30,9 +30,7 @@
             "need": false
         },
         {
-            "contains": [
-                "Withdrawal"
-            ],
+            "contains": "Withdrawal",
             "category": "Transfer",
             "need": true
         },
@@ -44,6 +42,6 @@
             "replace": "BP Gas Station",
             "category": "Gas",
             "need": true
-        },
+        }
     ]
 }
