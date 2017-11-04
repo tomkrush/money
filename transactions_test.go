@@ -1,6 +1,7 @@
 package main
 
 import (
+	"money/currency"
 	"reflect"
 	"testing"
 	"time"
@@ -70,11 +71,11 @@ func TestTransactions_Sort(t *testing.T) {
 
 func TestTransactions_SplitIntoAccounts(t *testing.T) {
 	transactions := Transactions{
-		Transaction{Amount: Currency{5}, AccountNumber: "1"},
-		Transaction{Amount: Currency{7}, AccountNumber: "1"},
-		Transaction{Amount: Currency{10}, AccountNumber: "2"},
-		Transaction{Amount: Currency{75}, AccountNumber: "2"},
-		Transaction{Amount: Currency{100}, AccountNumber: "3"},
+		Transaction{Amount: currency.New(5), AccountNumber: "1"},
+		Transaction{Amount: currency.New(7), AccountNumber: "1"},
+		Transaction{Amount: currency.New(10), AccountNumber: "2"},
+		Transaction{Amount: currency.New(75), AccountNumber: "2"},
+		Transaction{Amount: currency.New(100), AccountNumber: "3"},
 	}
 
 	accounts := transactions.SplitIntoAccounts()
@@ -98,40 +99,40 @@ func TestTransactions_Sum(t *testing.T) {
 	tests := []struct {
 		name         string
 		transactions Transactions
-		want         Currency
+		want         currency.Currency
 	}{
 		{
 			"Sum of transactions should be 1000",
 			Transactions{
-				Transaction{Amount: Currency{500}, Balance: Currency{500}},
-				Transaction{Amount: Currency{500}},
+				Transaction{Amount: currency.New(500), Balance: currency.New(500)},
+				Transaction{Amount: currency.New(500)},
 			},
-			Currency{1000},
+			currency.New(1000),
 		},
 		{
 			"Sum of transactions should be 750",
 			Transactions{
-				Transaction{Amount: Currency{250}, Balance: Currency{250}},
-				Transaction{Amount: Currency{250}},
-				Transaction{Amount: Currency{250}},
+				Transaction{Amount: currency.New(250), Balance: currency.New(250)},
+				Transaction{Amount: currency.New(250)},
+				Transaction{Amount: currency.New(250)},
 			},
-			Currency{750},
+			currency.New(750),
 		},
 		{
 			"Sum of transactions should be 90",
 			Transactions{
-				Transaction{Amount: Currency{5}, Balance: Currency{5}},
-				Transaction{Amount: Currency{10}},
-				Transaction{Amount: Currency{75}},
+				Transaction{Amount: currency.New(5), Balance: currency.New(5)},
+				Transaction{Amount: currency.New(10)},
+				Transaction{Amount: currency.New(75)},
 			},
-			Currency{90},
+			currency.New(90),
 		},
 		{
 			"Sum of transactions should be 1",
 			Transactions{
-				Transaction{Amount: Currency{1}, Balance: Currency{1}},
+				Transaction{Amount: currency.New(1), Balance: currency.New(1)},
 			},
-			Currency{1},
+			currency.New(1),
 		},
 	}
 

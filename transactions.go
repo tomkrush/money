@@ -1,6 +1,7 @@
 package main
 
 import (
+	"money/currency"
 	"sort"
 )
 
@@ -51,12 +52,12 @@ func (t Transactions) SplitIntoAccounts() Accounts {
 
 // Sum acts on the Ledger type to aggregate the sum of all
 // transaction amounts.
-func (t Transactions) Sum() Currency {
+func (t Transactions) Sum() currency.Currency {
 	total := 0
 
 	for _, item := range t {
 		total += item.Amount.Amount
 	}
 
-	return Currency{total}
+	return currency.New(total)
 }

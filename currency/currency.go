@@ -1,4 +1,4 @@
-package main
+package currency
 
 import (
 	"strconv"
@@ -7,6 +7,11 @@ import (
 // Currency is the amount of dollars represented in pennies.
 type Currency struct {
 	Amount int
+}
+
+// New returns a currency object
+func New(Amount int) Currency {
+	return Currency{Amount: Amount}
 }
 
 // FormatToDollars acts on the Current Type. This method outputs the currency
