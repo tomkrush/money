@@ -1,0 +1,49 @@
+{
+    "monthlyIncome": 3000,
+    "categories": [
+        {
+            "find": "Fast Food",
+            "replace": "Fast Food (Tom)",
+            "contains": [
+                "Naperville",
+                "Aurora",
+                "Warrenville",
+                "Carol Stream"
+            ]
+        }
+    ],
+    "transactions": [
+        {
+            "contains": "Jewel",
+            "replace": "Jewel Osco",
+            "category": "Groceries",
+            "need": true
+        },
+        {
+            "findReplace": "Walgreens",
+            "category": "Shopping",
+            "need": false
+        },
+        {
+            "findReplace": "Chipotle",
+            "category": "Fast Food",
+            "need": false
+        },
+        {
+            "contains": [
+                "Withdrawal"
+            ],
+            "category": "Transfer",
+            "need": true
+        },
+        {
+            "remove": "Debit Card Purchase - "
+        },
+        {
+            "some": ["Bp", "BP in Chicago"],
+            "replace": "BP Gas Station",
+            "category": "Gas",
+            "need": true
+        },
+    ]
+}
