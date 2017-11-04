@@ -41,6 +41,7 @@ func (t Transactions) SplitIntoAccounts() Accounts {
 	for _, item := range t {
 		accountNumber := item.AccountNumber
 		account := accounts[accountNumber]
+		account.AccountNumber = item.AccountNumber
 		account.Transactions = append(account.Transactions, item)
 		accounts[accountNumber] = account
 	}

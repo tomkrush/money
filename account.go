@@ -5,7 +5,8 @@ package main
 // I should probably have a function that validates that all the account ids
 // match. Right now this behavior is assumed.
 type Account struct {
-	Transactions Transactions
+	Transactions  Transactions
+	AccountNumber string
 }
 
 // Sum on an Account takes the sum of the transactions plus the starting balance
