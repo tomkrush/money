@@ -1,11 +1,11 @@
-package personalrules
+package rules
 
 import (
 	"encoding/json"
 	"io/ioutil"
 )
 
-type PersonalRules struct {
+type Rules struct {
 	MonthlyIncome int `json:"monthlyIncome"`
 	Categories    []struct {
 		Find    string   `json:"find"`
@@ -23,20 +23,20 @@ type PersonalRules struct {
 	} `json:"transactions"`
 }
 
-func New(path string) PersonalRules {
+func New(path string) Rules {
 	b, err := ioutil.ReadFile(path)
 
 	if err != nil {
 		panic(err)
 	}
 
-	personalRules := PersonalRules{}
+	rules := Rules{}
 
-	err = json.Unmarshal(b, &personalRules)
+	err = json.Unmarshal(b, &rules)
 
 	if err != nil {
 		panic(err)
 	}
 
-	return personalRules
+	return rules
 }

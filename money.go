@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"money/personalrules"
+	"money/rules"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
@@ -11,11 +11,11 @@ import (
 
 func main() {
 	transactionsPath := flag.String("path", "", "Import CSV file from specified path")
-	personalRulesPath := flag.String("personal-rules", "", "Import json file of personal rules")
+	rulesPath := flag.String("rules", "", "Import json file of rules")
 
 	flag.Parse()
 
-	_ = personalrules.New(*personalRulesPath)
+	_ = rules.New(*rulesPath)
 	transactions, _ := ImportTransactionsCSV(*transactionsPath)
 	accounts := transactions.SplitIntoAccounts()
 

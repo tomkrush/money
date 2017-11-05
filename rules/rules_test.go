@@ -1,4 +1,4 @@
-package personalrules
+package rules
 
 import (
 	"testing"
