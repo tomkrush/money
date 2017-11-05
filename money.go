@@ -35,5 +35,8 @@ func main() {
 		table.Append([]string{accountNumber, starting.FormatToDollars(), amount.FormatToDollars()})
 	}
 
+	starting := accounts.StartingBalance()
+	table.SetFooter([]string{"–", starting.FormatToDollars(), "–"})
+
 	table.Render() // Send output
 }
