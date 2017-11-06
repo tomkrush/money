@@ -24,7 +24,9 @@ type Transaction struct {
 	Need            bool
 }
 
-func (t *Transaction) getDescription() string {
+// GetDescription will return the user description if available, otherwise
+// the preset description will be returned instead.
+func (t *Transaction) GetDescription() string {
 	if t.UserDescription != "" {
 		return t.UserDescription
 	}
