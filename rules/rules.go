@@ -24,6 +24,7 @@ type Rules struct {
 	} `json:"transactions"`
 }
 
+// New create the rules from a json file
 func New(path string) Rules {
 	b, err := ioutil.ReadFile(path)
 
