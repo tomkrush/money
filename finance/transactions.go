@@ -21,6 +21,25 @@ func (t Transactions) SplitIntoAccounts() Accounts {
 	return accounts
 }
 
+// StartingBalance calculates the correct starting balance by iterating over
+// each transaction and identify if it belongs to a different account.
+// If it does, than the starting balance is added to the balance of all accounts.
+func (t Transactions) StartingBalance() Currency {
+	accounts := make(map[string]int)
+	balance := 0
+
+	for _, i := range t {
+		_, ok := accounts[i.AccountNumber]
+
+		if ok == false {
+			accounts[i.AccountNumber] = 0
+			balance += i.Balance.Amount - i.Amount.Amount
+		}
+	}
+
+	return NewCurrency(balance)
+}
+
 // Sum acts on the Ledger type to aggregate the sum of all
 // transaction amounts.
 func (t Transactions) Sum() Currency {

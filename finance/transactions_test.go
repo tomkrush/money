@@ -87,6 +87,56 @@ func TestTransactions_Sum(t *testing.T) {
 	}
 }
 
+func TestTransactions_StartingBalance(t *testing.T) {
+	tests := []struct {
+		name         string
+		transactions Transactions
+		want         Currency
+	}{
+		{
+			"Starting Balance of transactions should be 0",
+			Transactions{
+				Transaction{Amount: NewCurrency(500), Balance: NewCurrency(500)},
+				Transaction{Amount: NewCurrency(500)},
+			},
+			NewCurrency(0),
+		},
+		{
+			"Sum of transactions should be 750",
+			Transactions{
+				Transaction{Amount: NewCurrency(250), Balance: NewCurrency(250)},
+				Transaction{Amount: NewCurrency(250)},
+				Transaction{Amount: NewCurrency(250)},
+			},
+			NewCurrency(0),
+		},
+		{
+			"Sum of transactions should be 90",
+			Transactions{
+				Transaction{Amount: NewCurrency(5), Balance: NewCurrency(10)},
+				Transaction{Amount: NewCurrency(10)},
+				Transaction{Amount: NewCurrency(75)},
+			},
+			NewCurrency(5),
+		},
+		{
+			"Sum of transactions should be 1",
+			Transactions{
+				Transaction{Amount: NewCurrency(1), Balance: NewCurrency(10)},
+			},
+			NewCurrency(9),
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.transactions.StartingBalance(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Transactions.StartingBalance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestTransactions_Sort(t *testing.T) {
 	tests := []struct {
 		name         string
