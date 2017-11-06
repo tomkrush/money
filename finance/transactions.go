@@ -5,22 +5,6 @@ import "sort"
 // Transactions is a collection of type Transaction
 type Transactions []Transaction
 
-// SplitIntoAccounts takes a list of transactions and groups them by account.
-// This is done by looking at the accountNumber on each transaction.
-func (t Transactions) SplitIntoAccounts() Accounts {
-	accounts := make(Accounts)
-
-	for _, item := range t {
-		accountNumber := item.AccountNumber
-		account := accounts[accountNumber]
-		account.AccountNumber = item.AccountNumber
-		account.Transactions = append(account.Transactions, item)
-		accounts[accountNumber] = account
-	}
-
-	return accounts
-}
-
 // StartingBalance calculates the correct starting balance by iterating over
 // each transaction and identify if it belongs to a different account.
 // If it does, than the starting balance is added to the balance of all accounts.
@@ -43,7 +27,7 @@ func (t Transactions) StartingBalance() Currency {
 // Sum acts on the Ledger type to aggregate the sum of all
 // transaction amounts.
 func (t Transactions) Sum() Currency {
-	total := 0
+	total := t.StartingBalance().Amount
 
 	for _, item := range t {
 		total += item.Amount.Amount

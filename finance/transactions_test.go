@@ -11,32 +11,6 @@ func createTransaction(uniqueID int, date string) Transaction {
 	return Transaction{UniqueID: uniqueID, Date: timestamp}
 }
 
-func TestTransactions_SplitIntoAccounts(t *testing.T) {
-	transactions := Transactions{
-		Transaction{Amount: NewCurrency(5), AccountNumber: "1"},
-		Transaction{Amount: NewCurrency(7), AccountNumber: "1"},
-		Transaction{Amount: NewCurrency(10), AccountNumber: "2"},
-		Transaction{Amount: NewCurrency(75), AccountNumber: "2"},
-		Transaction{Amount: NewCurrency(100), AccountNumber: "3"},
-	}
-
-	accounts := transactions.SplitIntoAccounts()
-
-	if len(accounts) != 3 {
-		t.Errorf("Transactions.SplitIntoAccounts() = %v, want %v", len(accounts), 3)
-	}
-
-	account, ok := accounts["1"]
-
-	if ok == false {
-		t.Error("Account 1 should exist")
-	}
-
-	if len(account.Transactions) != 2 {
-		t.Errorf("Account Transitions Length = %v, want %v", len(account.Transactions), 2)
-	}
-}
-
 func TestTransactions_Sum(t *testing.T) {
 	tests := []struct {
 		name         string
