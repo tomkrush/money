@@ -3,6 +3,7 @@ package rules
 import (
 	"encoding/json"
 	"io/ioutil"
+	"money/finance"
 )
 
 type Rules struct {
@@ -41,6 +42,7 @@ func New(path string) Rules {
 	return rules
 }
 
-// func (r Rules) Apply(transactions Transactions) Transactions {
-// 	return transactions
-// }
+// Apply rules to transactions
+func (r Rules) Apply(transactions finance.Transactions) finance.Transactions {
+	return transactions
+}
