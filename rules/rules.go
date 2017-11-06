@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// TransactionRule describes the filters and transformations for a transaction.
 type TransactionRule struct {
 	Contains    string           `json:"contains,omitempty"`
 	Replace     string           `json:"replace,omitempty"`
@@ -18,12 +19,15 @@ type TransactionRule struct {
 	Amount      finance.Currency `json:"amount,omitempty"`
 }
 
+// CategoryRule applies additional transformations on top of category.
 type CategoryRule struct {
 	Find    string   `json:"find"`
 	Replace string   `json:"replace"`
 	Some    []string `json:"some"`
 }
 
+// Rules contain the structures required to personalize the transaction data
+// to the family needs.
 type Rules struct {
 	MonthlyIncome int               `json:"monthlyIncome"`
 	Categories    []CategoryRule    `json:"categories"`
@@ -77,6 +81,17 @@ func descriptionContains(transaction finance.Transaction, contains string) bool 
 	return false
 }
 
+// Apply takes a TransactionRule and applies transformations on the transaction
+// object.
+//
+// - Checks if a string exists in description. This is a matching property.
+// - Replace will replace the string in the description
+// - Category is assigned if a matching property is found
+// - Need is assigned if a matched property is found
+// - FindReplace checks if string exists, and replaces description if it does.
+// - Remove removes the string from the description if a match is found
+// - Some checks if a string in some exists. This is a matching property.
+// - Amount checks if the amount of the transaction matches. If not, rule is void.
 func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transaction, bool) {
 	matched := false
 
