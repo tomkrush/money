@@ -37,12 +37,13 @@ The usefulness of this program will grow as items are completed on the roadmap.
 - [x] Create accounts
 - [x] Calculate starting balance
 - [x] Calculate sum of transactions & accounts
-- [ ] Create transaction mapping rules
-    - [ ] Create want & need reports
-    - [ ] Create categories
+- [x] Create transaction mapping rules
+    - [x] Create want & need
+    - [x] Create categories
     - [ ] Create location based categories
-    - [ ] Create transaction name re-mapping
+    - [x] Create transaction name re-mapping
     - [ ] Create bills
+- [ ] Restructure the transaction system. I got carried away on the concept of accounts. This is not my intent. By design, I want a single stream of transactions.
 - [ ] Create bill reports
 - [ ] Think about web interface
 - [ ] Create SMS notification for families
