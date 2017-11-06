@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"money/importer"
 	"money/rules"
 	"os"
 
@@ -16,7 +17,7 @@ func main() {
 	flag.Parse()
 
 	personalRules := rules.New(*rulesPath)
-	transactions, _ := ImportTransactionsCSV(*transactionsPath)
+	transactions, _ := importer.TransactionsCSV(*transactionsPath)
 
 	transactions = personalRules.Apply(transactions)
 

@@ -1,4 +1,4 @@
-package main
+package importer
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestImporter(t *testing.T) {
-	transactions, _ := ImportTransactionsCSV("testdata/transactions.csv")
+	transactions, _ := TransactionsCSV("testdata/transactions.csv")
 
 	if len(transactions) == 0 {
 		t.Errorf("Expected to import %v, but only got %v", 8, len(transactions))
@@ -14,7 +14,7 @@ func TestImporter(t *testing.T) {
 }
 
 func TestFirstRecordData(t *testing.T) {
-	transactions, _ := ImportTransactionsCSV("testdata/transactions.csv")
+	transactions, _ := TransactionsCSV("testdata/transactions.csv")
 	transaction := transactions[0]
 	bankID := "1234567"
 	accountNumber := "555555555"
@@ -78,7 +78,7 @@ func TestFirstRecordData(t *testing.T) {
 }
 
 func TestImporterNoPath(t *testing.T) {
-	_, err := ImportTransactionsCSV("")
+	_, err := TransactionsCSV("")
 
 	if err.Error() != "open : no such file or directory" {
 		t.Errorf("Expected error because no path provided. %s", err.Error())
@@ -86,7 +86,7 @@ func TestImporterNoPath(t *testing.T) {
 }
 
 func TestImporterIncorrectFields(t *testing.T) {
-	_, err := ImportTransactionsCSV("testdata/transactions_error.csv")
+	_, err := TransactionsCSV("testdata/transactions_error.csv")
 
 	if err.Error() != "line 2, column 0: wrong number of fields in line" {
 		t.Errorf("Expected error because no row field count different than header field count. %s", err.Error())

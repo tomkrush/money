@@ -1,4 +1,4 @@
-package main
+package importer
 
 import (
 	"encoding/csv"
@@ -10,7 +10,7 @@ import (
 )
 
 // ImportTransactionsCSV accepts a file path be imported as Transaction types.
-func ImportTransactionsCSV(path string) (finance.Transactions, error) {
+func TransactionsCSV(path string) (finance.Transactions, error) {
 	file, err := os.Open(path)
 
 	if err != nil {
