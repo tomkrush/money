@@ -1,4 +1,4 @@
-package currency
+package finance
 
 import (
 	"testing"
@@ -67,7 +67,7 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := New(tt.amount); got.Amount != tt.want {
+			if got := NewCurrency(tt.amount); got.Amount != tt.want {
 				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})
@@ -85,7 +85,7 @@ func TestNewFromDollars(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewFromDollars(tt.amount); got.Amount != tt.want {
+			if got := NewCurrencyFromDollars(tt.amount); got.Amount != tt.want {
 				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})

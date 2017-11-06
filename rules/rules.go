@@ -40,3 +40,7 @@ func New(path string) Rules {
 
 	return rules
 }
+
+// func (r Rules) Apply(transactions Transactions) Transactions {
+// 	return transactions
+// }

@@ -1,4 +1,4 @@
-package currency
+package finance
 
 import (
 	"strconv"
@@ -9,13 +9,13 @@ type Currency struct {
 	Amount int
 }
 
-// New returns a currency object. It is provided the amount in cents.
-func New(Amount int) Currency {
+// NewCurrency returns a currency object. It is provided the amount in cents.
+func NewCurrency(Amount int) Currency {
 	return Currency{Amount: Amount}
 }
 
-// NewFromDollars returns a currency object. It is provided the amount in dollars.
-func NewFromDollars(dollars string) Currency {
+// NewCurrencyFromDollars returns a currency object. It is provided the amount in dollars.
+func NewCurrencyFromDollars(dollars string) Currency {
 	currency := Currency{}
 	currency.FromDollars(dollars)
 

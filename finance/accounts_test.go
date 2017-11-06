@@ -1,7 +1,6 @@
-package main
+package finance
 
 import (
-	"money/currency"
 	"reflect"
 	"testing"
 )
@@ -10,25 +9,25 @@ func TestAccounts_StartingBalance(t *testing.T) {
 	tests := []struct {
 		name     string
 		accounts Accounts
-		want     currency.Currency
+		want     Currency
 	}{
 		{
 			"Starting balance is 0",
 			Accounts{
 				"1": Account{
 					Transactions: Transactions{
-						Transaction{Amount: currency.New(500), Balance: currency.New(600)},
-						Transaction{Amount: currency.New(500), Balance: currency.New(1000)},
+						Transaction{Amount: NewCurrency(500), Balance: NewCurrency(600)},
+						Transaction{Amount: NewCurrency(500), Balance: NewCurrency(1000)},
 					},
 				},
 				"2": Account{
 					Transactions: Transactions{
-						Transaction{Amount: currency.New(250), Balance: currency.New(1311)},
-						Transaction{Amount: currency.New(300), Balance: currency.New(300)},
+						Transaction{Amount: NewCurrency(250), Balance: NewCurrency(1311)},
+						Transaction{Amount: NewCurrency(300), Balance: NewCurrency(300)},
 					},
 				},
 			},
-			currency.New(1161),
+			NewCurrency(1161),
 		},
 	}
 

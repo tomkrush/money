@@ -3,14 +3,14 @@ package main
 import (
 	"encoding/csv"
 	"io"
-	"money/currency"
+	"money/finance"
 	"os"
 	"strconv"
 	"time"
 )
 
 // ImportTransactionsCSV accepts a file path be imported as Transaction types.
-func ImportTransactionsCSV(path string) (Transactions, error) {
+func ImportTransactionsCSV(path string) (finance.Transactions, error) {
 	file, err := os.Open(path)
 
 	if err != nil {
@@ -21,7 +21,7 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 
 	reader := csv.NewReader(file)
 
-	transactions := make([]Transaction, 0)
+	transactions := make([]finance.Transaction, 0)
 
 	skippedHeader := false
 
@@ -39,12 +39,12 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 			return nil, err
 		}
 
-		transaction := Transaction{}
+		transaction := finance.Transaction{}
 		transaction.BankID = record[0]
 		transaction.AccountNumber = record[1]
 		transaction.AccountType = record[2]
 
-		transaction.Balance = currency.NewFromDollars(record[3])
+		transaction.Balance = finance.NewCurrencyFromDollars(record[3])
 
 		transaction.StartDate, err = time.Parse("2006-01-02", record[4])
 
@@ -66,7 +66,7 @@ func ImportTransactionsCSV(path string) (Transactions, error) {
 			return nil, err
 		}
 
-		transaction.Amount = currency.NewFromDollars(record[8])
+		transaction.Amount = finance.NewCurrencyFromDollars(record[8])
 
 		uniqueID, err := strconv.ParseInt(record[9], 10, 32)
 

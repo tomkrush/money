@@ -1,4 +1,4 @@
-package main
+package finance
 
 import (
 	"testing"
@@ -17,7 +17,6 @@ func TestTransaction_GetDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.want != tt.transaction.GetDescription() {
-
 				t.Errorf("GetDescription returned %v, want %v", tt.transaction.GetDescription(), tt.want)
 			}
 		})

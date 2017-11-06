@@ -1,7 +1,6 @@
-package main
+package finance
 
 import (
-	"money/currency"
 	"time"
 )
 
@@ -11,12 +10,12 @@ type Transaction struct {
 	BankID          string
 	AccountNumber   string
 	AccountType     string
-	Balance         currency.Currency
+	Balance         Currency
 	StartDate       time.Time
 	EndDate         time.Time
 	Type            string
 	Date            time.Time
-	Amount          currency.Currency
+	Amount          Currency
 	UniqueID        int
 	Description     string
 	UserDescription string

@@ -1,7 +1,6 @@
-package main
+package finance
 
 import (
-	"money/currency"
 	"reflect"
 	"testing"
 )
@@ -10,40 +9,40 @@ func TestAccount_sum(t *testing.T) {
 	tests := []struct {
 		name         string
 		transactions Transactions
-		want         currency.Currency
+		want         Currency
 	}{
 		{
 			"Sum of transactions should be 1000",
 			Transactions{
-				Transaction{Amount: currency.New(500), Balance: currency.New(500)},
-				Transaction{Amount: currency.New(500)},
+				Transaction{Amount: NewCurrency(500), Balance: NewCurrency(500)},
+				Transaction{Amount: NewCurrency(500)},
 			},
-			currency.New(1000),
+			NewCurrency(1000),
 		},
 		{
 			"Sum of transactions should be 750",
 			Transactions{
-				Transaction{Amount: currency.New(250), Balance: currency.New(250)},
-				Transaction{Amount: currency.New(250)},
-				Transaction{Amount: currency.New(250)},
+				Transaction{Amount: NewCurrency(250), Balance: NewCurrency(250)},
+				Transaction{Amount: NewCurrency(250)},
+				Transaction{Amount: NewCurrency(250)},
 			},
-			currency.New(750),
+			NewCurrency(750),
 		},
 		{
 			"Sum of transactions should be 90",
 			Transactions{
-				Transaction{Amount: currency.New(5), Balance: currency.New(5)},
-				Transaction{Amount: currency.New(10)},
-				Transaction{Amount: currency.New(75)},
+				Transaction{Amount: NewCurrency(5), Balance: NewCurrency(5)},
+				Transaction{Amount: NewCurrency(10)},
+				Transaction{Amount: NewCurrency(75)},
 			},
-			currency.New(90),
+			NewCurrency(90),
 		},
 		{
 			"Sum of transactions should be 1",
 			Transactions{
-				Transaction{Amount: currency.New(1), Balance: currency.New(1)},
+				Transaction{Amount: NewCurrency(1), Balance: NewCurrency(1)},
 			},
-			currency.New(1),
+			NewCurrency(1),
 		},
 	}
 
@@ -63,24 +62,24 @@ func TestAccount_StartingBalance(t *testing.T) {
 	tests := []struct {
 		name         string
 		transactions Transactions
-		want         currency.Currency
+		want         Currency
 	}{
 		{
 			"Starting balance is 0",
 			Transactions{
-				Transaction{Amount: currency.New(500), Balance: currency.New(500)},
-				Transaction{Amount: currency.New(500), Balance: currency.New(1000)},
+				Transaction{Amount: NewCurrency(500), Balance: NewCurrency(500)},
+				Transaction{Amount: NewCurrency(500), Balance: NewCurrency(1000)},
 			},
-			currency.New(0),
+			NewCurrency(0),
 		},
 		{
 			"Starting balance is 250",
 			Transactions{
-				Transaction{Amount: currency.New(250), Balance: currency.New(500)},
-				Transaction{Amount: currency.New(250), Balance: currency.New(750)},
-				Transaction{Amount: currency.New(250), Balance: currency.New(1000)},
+				Transaction{Amount: NewCurrency(250), Balance: NewCurrency(500)},
+				Transaction{Amount: NewCurrency(250), Balance: NewCurrency(750)},
+				Transaction{Amount: NewCurrency(250), Balance: NewCurrency(1000)},
 			},
-			currency.New(250),
+			NewCurrency(250),
 		},
 	}
 
