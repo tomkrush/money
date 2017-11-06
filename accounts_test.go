@@ -17,14 +17,14 @@ func TestAccounts_StartingBalance(t *testing.T) {
 			Accounts{
 				"1": Account{
 					Transactions: Transactions{
-						Transaction{Amount: currency.New(500), Balance: currency.New(600), AccountNumber: "1"},
-						Transaction{Amount: currency.New(500), Balance: currency.New(1000), AccountNumber: "1"},
+						Transaction{Amount: currency.New(500), Balance: currency.New(600)},
+						Transaction{Amount: currency.New(500), Balance: currency.New(1000)},
 					},
 				},
 				"2": Account{
 					Transactions: Transactions{
-						Transaction{Amount: currency.New(250), Balance: currency.New(1311), AccountNumber: "2"},
-						Transaction{Amount: currency.New(300), Balance: currency.New(300), AccountNumber: "2"},
+						Transaction{Amount: currency.New(250), Balance: currency.New(1311)},
+						Transaction{Amount: currency.New(300), Balance: currency.New(300)},
 					},
 				},
 			},
