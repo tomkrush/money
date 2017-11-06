@@ -48,6 +48,8 @@ func (c *Currency) FromDollars(dollars string) {
 	c.Amount = int(amount)
 }
 
+// UnmarshalJSON allows the Currency type to assign the value according to the
+// the interal structure of this type.
 func (c *Currency) UnmarshalJSON(data []byte) error {
 	var amount int
 	if err := json.Unmarshal(data, &amount); err != nil {

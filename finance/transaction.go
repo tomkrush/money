@@ -36,6 +36,8 @@ func (t Transaction) GetDescription() string {
 	return strings.TrimSpace(description)
 }
 
+// GetCategory returns the category if available. Otherwise, the category
+// "Uncategorized" is returned.
 func (t Transaction) GetCategory() string {
 	category := "Uncategorized"
 
