@@ -77,10 +77,10 @@ func TestAccount_DateRange(t *testing.T) {
 
 	start, _ := time.Parse("2006-01-02", "2017-10-01")
 	end, _ := time.Parse("2006-01-02", "2017-10-31")
-	transactions := account.DateRange(start, end)
+	a := account.DateRange(start, end)
 
-	if len(transactions) != 4 {
-		t.Errorf("Incorrect number of transactions identified %d %d", len(transactions), 4)
+	if len(a.Transactions) != 4 {
+		t.Errorf("Incorrect number of transactions identified %d %d", len(a.Transactions), 4)
 	}
 }
 

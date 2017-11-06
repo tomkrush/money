@@ -12,7 +12,7 @@ type Account struct {
 }
 
 // DateRange returns Transactions between start and end time
-func (a Account) DateRange(start time.Time, end time.Time) Transactions {
+func (a Account) DateRange(start time.Time, end time.Time) Account {
 	var found Transactions
 
 	for _, t := range a.Transactions {
@@ -21,7 +21,9 @@ func (a Account) DateRange(start time.Time, end time.Time) Transactions {
 		}
 	}
 
-	return found
+	a.Transactions = found
+
+	return a
 }
 
 // Sum on an Account takes the sum of the transactions plus the starting balance

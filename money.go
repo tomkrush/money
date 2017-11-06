@@ -6,6 +6,7 @@ import (
 	"money/importer"
 	"money/rules"
 	"os"
+	"time"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -21,10 +22,6 @@ func main() {
 
 	transactions = personalRules.Apply(transactions)
 
-	for _, t := range transactions {
-		fmt.Println(t.GetCategory(), t.GetDescription(), t.Amount.FormatToDollars())
-	}
-
 	accounts := transactions.SplitIntoAccounts()
 
 	fmt.Println("# Account Balances")
@@ -37,6 +34,10 @@ func main() {
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	for accountNumber, account := range accounts {
+		start, _ := time.Parse("2006-01-02", "2017-11-01")
+		end, _ := time.Parse("2006-01-02", "2017-11-03")
+		account = account.DateRange(start, end)
+
 		amount := account.Sum()
 		starting := account.StartingBalance()
 
