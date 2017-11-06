@@ -1,5 +1,7 @@
 package finance
 
+import "time"
+
 // Account can only contain transactions with the same account id.
 //
 // I should probably have a function that validates that all the account ids
@@ -7,6 +9,19 @@ package finance
 type Account struct {
 	Transactions  Transactions
 	AccountNumber string
+}
+
+// DateRange returns Transactions between start and end time
+func (a Account) DateRange(start time.Time, end time.Time) Transactions {
+	var found Transactions
+
+	for _, t := range a.Transactions {
+		if (t.Date.After(start) && t.Date.Before(end)) || (start == t.Date || end == t.Date) {
+			found = append(found, t)
+		}
+	}
+
+	return found
 }
 
 // Sum on an Account takes the sum of the transactions plus the starting balance

@@ -3,6 +3,7 @@ package finance
 import (
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestAccount_sum(t *testing.T) {
@@ -55,6 +56,31 @@ func TestAccount_sum(t *testing.T) {
 				t.Errorf("Account.Sum() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func createTransactionAmount(amount int, date string) Transaction {
+	timestamp, _ := time.Parse("2006-01-02", date)
+	return Transaction{Amount: NewCurrency(amount), Date: timestamp}
+}
+
+func TestAccount_DateRange(t *testing.T) {
+	account := Account{
+		Transactions: Transactions{
+			createTransactionAmount(500, "2017-10-01"),
+			createTransactionAmount(500, "2017-10-05"),
+			createTransactionAmount(500, "2017-10-17"),
+			createTransactionAmount(500, "2017-10-22"),
+			createTransactionAmount(500, "2017-11-04"),
+		},
+	}
+
+	start, _ := time.Parse("2006-01-02", "2017-10-01")
+	end, _ := time.Parse("2006-01-02", "2017-10-31")
+	transactions := account.DateRange(start, end)
+
+	if len(transactions) != 4 {
+		t.Errorf("Incorrect number of transactions identified %d %d", len(transactions), 4)
 	}
 }
 
