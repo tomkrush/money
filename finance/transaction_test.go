@@ -22,3 +22,22 @@ func TestTransaction_GetDescription(t *testing.T) {
 		})
 	}
 }
+
+func TestTransaction_GetCategory(t *testing.T) {
+	tests := []struct {
+		name        string
+		transaction Transaction
+		want        string
+	}{
+		{"Should return category", Transaction{Category: "Fast Food"}, "Fast Food"},
+		{"Should return uncategorized", Transaction{}, "Uncategorized"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.want != tt.transaction.GetCategory() {
+				t.Errorf("GetCategory returned %v, want %v", tt.transaction.GetCategory(), tt.want)
+			}
+		})
+	}
+}
