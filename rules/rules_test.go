@@ -29,25 +29,25 @@ func TestRules_TransactionRule_Apply_Category(t *testing.T) {
 		Category: "Store",
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.Category != "Store" {
+	if transaction.Category != "Store" && matched {
 		t.Error("Category failed to assign")
 	}
 }
 
 func TestRules_TransactionRule_Apply_Replace(t *testing.T) {
-	transaction := finance.Transaction{Description: "Target – Somewhere"}
+	transaction := finance.Transaction{Description: "CHIPOTLE 1408 ELK GROVE VI IL"}
 
 	transactionRule := TransactionRule{
-		Contains: "Target",
-		Replace:  "Target",
+		Contains: "Chipotle",
+		Replace:  "Chipotle",
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.GetDescription() != "Target" {
-		t.Error("New description failed to replace")
+	if transaction.GetDescription() != "Chipotle" && matched {
+		t.Errorf("New description failed to replace")
 	}
 }
 
@@ -59,9 +59,9 @@ func TestRules_TransactionRule_Apply_Need(t *testing.T) {
 		Need:     true,
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.Need != true {
+	if transaction.Need != true && matched {
 		t.Error("Need wasn't assigned true")
 	}
 }
@@ -73,9 +73,9 @@ func TestRules_TransactionRule_Apply_FindReplace(t *testing.T) {
 		FindReplace: "BP",
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.GetDescription() != "BP" {
+	if transaction.GetDescription() != "BP" && matched {
 		t.Error("FindReplace didnt't find or assign")
 	}
 }
@@ -87,9 +87,9 @@ func TestRules_TransactionRule_Apply_Remove(t *testing.T) {
 		Remove: "Gas Station",
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.GetDescription() != "BP" {
+	if transaction.GetDescription() != "BP" && matched {
 		t.Errorf("Remove didn't work %s", transaction.GetDescription())
 	}
 }
@@ -102,9 +102,9 @@ func TestRules_TransactionRule_Apply_Some(t *testing.T) {
 		Replace: "Townhouse Rent",
 	}
 
-	transaction = transactionRule.Apply(transaction)
+	transaction, matched := transactionRule.Apply(transaction)
 
-	if transaction.GetDescription() != "Townhouse Rent" {
+	if transaction.GetDescription() != "Townhouse Rent" && matched {
 		t.Errorf("Some didn't work %s", transaction.GetDescription())
 	}
 }

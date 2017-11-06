@@ -50,6 +50,16 @@ func New(path string) Rules {
 
 // Apply rules to transactions
 func (r Rules) Apply(transactions finance.Transactions) finance.Transactions {
+	for i, t := range transactions {
+		for _, tr := range r.Transactions {
+			t, matched := tr.Apply(t)
+
+			if matched {
+				transactions[i] = t
+			}
+		}
+	}
+
 	return transactions
 }
 
@@ -66,7 +76,7 @@ func descriptionContains(transaction finance.Transaction, contains string) bool 
 	return false
 }
 
-func (r TransactionRule) Apply(transaction finance.Transaction) finance.Transaction {
+func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transaction, bool) {
 	matched := false
 
 	if descriptionContains(transaction, r.Contains) {
@@ -109,5 +119,5 @@ func (r TransactionRule) Apply(transaction finance.Transaction) finance.Transact
 		transaction.Need = r.Need
 	}
 
-	return transaction
+	return transaction, matched
 }

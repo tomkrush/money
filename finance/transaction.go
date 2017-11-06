@@ -26,7 +26,7 @@ type Transaction struct {
 
 // GetDescription will return the user description if available, otherwise
 // the preset description will be returned instead.
-func (t *Transaction) GetDescription() string {
+func (t Transaction) GetDescription() string {
 	description := t.Description
 
 	if t.UserDescription != "" {
@@ -34,4 +34,14 @@ func (t *Transaction) GetDescription() string {
 	}
 
 	return strings.TrimSpace(description)
+}
+
+func (t Transaction) GetCategory() string {
+	category := "Uncategorized"
+
+	if t.Category != "" {
+		category = t.Category
+	}
+
+	return strings.TrimSpace(category)
 }

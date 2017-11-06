@@ -15,8 +15,15 @@ func main() {
 
 	flag.Parse()
 
-	_ = rules.New(*rulesPath)
+	personalRules := rules.New(*rulesPath)
 	transactions, _ := ImportTransactionsCSV(*transactionsPath)
+
+	transactions = personalRules.Apply(transactions)
+
+	for _, t := range transactions {
+		fmt.Println(t.GetCategory(), t.GetDescription(), t.Amount.FormatToDollars())
+	}
+
 	accounts := transactions.SplitIntoAccounts()
 
 	fmt.Println("# Account Balances")
