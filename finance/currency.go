@@ -1,6 +1,7 @@
 package finance
 
 import (
+	"encoding/json"
 	"strconv"
 )
 
@@ -45,4 +46,13 @@ func (c *Currency) FromDollars(dollars string) {
 	}
 
 	c.Amount = int(amount)
+}
+
+func (c *Currency) UnmarshalJSON(data []byte) error {
+	var amount int
+	if err := json.Unmarshal(data, &amount); err != nil {
+		return err
+	}
+	c.Amount = amount
+	return nil
 }

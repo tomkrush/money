@@ -108,3 +108,22 @@ func TestRules_TransactionRule_Apply_Some(t *testing.T) {
 		t.Errorf("Some didn't work %s", transaction.GetDescription())
 	}
 }
+
+func TestRules_TransactionRule_Apply_SomeAmount(t *testing.T) {
+	transaction := finance.Transaction{
+		Description: "Check #1311",
+		Amount:      finance.NewCurrency(130),
+	}
+
+	transactionRule := TransactionRule{
+		Some:    []string{"check", "cashed"},
+		Replace: "Townhouse Rent",
+		Amount:  finance.NewCurrency(150000),
+	}
+
+	transaction, matched := transactionRule.Apply(transaction)
+
+	if transaction.GetDescription() == "Townhouse Rent" && matched {
+		t.Errorf("Description should not have applied")
+	}
+}

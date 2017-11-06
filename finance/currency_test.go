@@ -1,6 +1,7 @@
 package finance
 
 import (
+	"encoding/json"
 	"testing"
 )
 
@@ -27,6 +28,18 @@ func TestCurrency_CentsToDollars(t *testing.T) {
 				t.Errorf("Currency.CentsToDollars() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestCurrency_UnmarshalJSON(t *testing.T) {
+	var c Currency
+
+	if err := json.Unmarshal([]byte("15000"), &c); err != nil {
+		t.Errorf("Error unmarshalling %s", err)
+	}
+
+	if c.Amount != 15000 {
+		t.Errorf("Currency value incorrect %d", c.Amount)
 	}
 }
 
