@@ -11,6 +11,29 @@ func createTransaction(uniqueID int, date string) Transaction {
 	return Transaction{UniqueID: uniqueID, Date: timestamp}
 }
 
+func createTransactionAmount(amount int, date string) Transaction {
+	timestamp, _ := time.Parse("2006-01-02", date)
+	return Transaction{Amount: NewCurrency(amount), Date: timestamp}
+}
+
+func TestTransactions_DateRange(t *testing.T) {
+	transactions := Transactions{
+		createTransactionAmount(500, "2017-10-01"),
+		createTransactionAmount(500, "2017-10-05"),
+		createTransactionAmount(500, "2017-10-17"),
+		createTransactionAmount(500, "2017-10-22"),
+		createTransactionAmount(500, "2017-11-04"),
+	}
+
+	start, _ := time.Parse("2006-01-02", "2017-10-01")
+	end, _ := time.Parse("2006-01-02", "2017-10-31")
+	transactions = transactions.DateRange(start, end)
+
+	if len(transactions) != 4 {
+		t.Errorf("Incorrect number of transactions identified %d %d", len(transactions), 4)
+	}
+}
+
 func TestTransactions_Sum(t *testing.T) {
 	tests := []struct {
 		name         string

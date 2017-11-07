@@ -1,6 +1,9 @@
 package finance
 
-import "sort"
+import (
+	"sort"
+	"time"
+)
 
 // Transactions is a collection of type Transaction
 type Transactions []Transaction
@@ -60,4 +63,45 @@ func (t Transactions) Less(i, j int) bool {
 	}
 
 	return t[i].UniqueID < t[j].UniqueID
+}
+
+// FilterByCategory reduces the list of transactions by category. Any number
+// of categories can be provided.
+func (t Transactions) FilterByCategory(categories ...string) Transactions {
+	var output Transactions
+
+	for _, transaction := range t {
+		for _, category := range categories {
+			if transaction.GetCategory() == category {
+				output = append(output, transaction)
+			}
+		}
+	}
+
+	return output
+}
+
+// TotalExpenses is the sum of all negative amounts
+func (t Transactions) TotalExpenses() Currency {
+	total := 0
+	for _, transaction := range t {
+		if transaction.Amount.Amount < 0 {
+			total += transaction.Amount.Amount
+		}
+	}
+
+	return NewCurrency(total)
+}
+
+// DateRange returns Transactions between start and end time
+func (t Transactions) DateRange(start time.Time, end time.Time) Transactions {
+	var found Transactions
+
+	for _, transaction := range t {
+		if (transaction.Date.After(start) && transaction.Date.Before(end)) || (start == transaction.Date || end == transaction.Date) {
+			found = append(found, transaction)
+		}
+	}
+
+	return found
 }
