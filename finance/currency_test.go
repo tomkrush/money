@@ -43,6 +43,14 @@ func TestCurrency_UnmarshalJSON(t *testing.T) {
 	}
 }
 
+func TestCurrency_UnmarshalJSONError(t *testing.T) {
+	var c Currency
+
+	if err := json.Unmarshal([]byte("test"), &c); err == nil {
+		t.Errorf("Should have errored unmarshalling %s", err)
+	}
+}
+
 func TestCurrency_FromDollars(t *testing.T) {
 	type args struct {
 		dollars int
