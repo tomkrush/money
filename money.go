@@ -2,12 +2,10 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"money/importer"
+	"money/reports"
 	"money/rules"
-	"os"
-
-	"github.com/olekukonko/tablewriter"
+	"time"
 )
 
 func main() {
@@ -19,20 +17,16 @@ func main() {
 	personalRules := rules.New(*rulesPath)
 	transactions, _ := importer.TransactionsCSV(*transactionsPath)
 
+	transactions.Sort()
+
 	transactions = personalRules.Apply(transactions)
 
-	fmt.Println("# Personal Balance")
-	fmt.Println()
+	start, _ := time.Parse("2006-01-02", "2017-10-01")
+	end, _ := time.Parse("2006-01-02", "2017-10-31")
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Starting Balance", "Ending Balance"})
-	table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
-	table.SetCenterSeparator("|")
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
+	transactions = transactions.DateRange(start, end)
 
-	starting := transactions.StartingBalance()
-	amount := transactions.Sum()
-	table.Append([]string{starting.FormatToDollars(), amount.FormatToDollars()})
-
-	table.Render() // Send output
+	// transactions = transactions.FilterByCategory("Uncategorized")
+	// reports.Transactions(transactions)
+	reports.Categories(transactions)
 }
