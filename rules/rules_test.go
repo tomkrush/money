@@ -127,3 +127,26 @@ func TestRules_TransactionRule_Apply_SomeAmount(t *testing.T) {
 		t.Errorf("Description should not have applied")
 	}
 }
+
+func TestRules_TransactionRule_Apply_Bill(t *testing.T) {
+	transaction := finance.Transaction{
+		Description: "Check #1311",
+		Amount:      finance.NewCurrency(150000),
+	}
+
+	transactionRule := TransactionRule{
+		Some:    []string{"check", "cashed"},
+		Replace: "Townhouse Rent",
+		Amount:  finance.NewCurrency(150000),
+		Bill: BillRule{
+			Day:    1,
+			Amount: finance.NewCurrency(150000),
+		},
+	}
+
+	transaction, _ = transactionRule.Apply(transaction)
+
+	if transaction.Bill != true {
+		t.Errorf("Bill wasn't identified")
+	}
+}

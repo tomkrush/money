@@ -17,6 +17,17 @@ type TransactionRule struct {
 	Remove      string           `json:"remove,omitempty"`
 	Some        []string         `json:"some,omitempty"`
 	Amount      finance.Currency `json:"amount,omitempty"`
+	Bill        BillRule         `json:"bill,omitempty"`
+}
+
+// BillRule describes the transaction bills rules.
+// Any transaction that is encountered will a Bill Rule will be marked "paid"
+// The day and amount are used to drive the report predictions. The day and amount
+// are not actuall used once a bill is paid. The day and amount will be automatically
+// set to the actual transaction day and amount.
+type BillRule struct {
+	Day    int              `json:"day,omitempty"`
+	Amount finance.Currency `json:"amount,omitempty"`
 }
 
 // CategoryRule applies additional transformations on top of category.
@@ -139,6 +150,10 @@ func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transac
 		}
 
 		transaction.Need = r.Need
+
+		if r.Bill.Day != 0 {
+			transaction.Bill = true
+		}
 	}
 
 	return transaction, matched
