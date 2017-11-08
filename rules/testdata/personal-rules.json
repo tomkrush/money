@@ -38,10 +38,23 @@
             "remove": "Debit Card Purchase - "
         },
         {
-            "some": ["Bp", "BP in Chicago"],
+            "some": [
+                "Bp",
+                "BP in Chicago"
+            ],
             "replace": "BP Gas Station",
             "category": "Gas",
             "need": true
+        },
+        {
+            "contains": "GitHub",
+            "replace": "GitHub",
+            "category": "Web",
+            "bill": {
+                "day": 13,
+                "amount": 700
+            },
+            "need": false
         }
     ]
 }
