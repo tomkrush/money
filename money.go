@@ -27,6 +27,6 @@ func main() {
 	transactions = transactions.DateRange(start, end)
 
 	// transactions = transactions.FilterByCategory("Uncategorized")
-	// reports.Transactions(transactions)
-	reports.Categories(transactions)
+	reports.Transactions(transactions)
+	// reports.Categories(transactions)
 }

@@ -44,6 +44,6 @@ func Transactions(transactions finance.Transactions) {
 
 	table.Render() // Send output
 
-	sum := transactions.TotalExpenses()
+	sum := transactions.Sum()
 	fmt.Println("Total: " + sum.FormatToDollars())
 }
