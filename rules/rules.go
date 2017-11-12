@@ -160,3 +160,16 @@ func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transac
 
 	return transaction, matched
 }
+
+// Bills returns a list of all bills from the transaction rules
+func (r Rules) Bills() Bills {
+	bills := Bills{}
+
+	for _, rule := range r.Transactions {
+		if rule.Bill.Description != "" {
+			bills.Rules = append(bills.Rules, rule)
+		}
+	}
+
+	return bills
+}

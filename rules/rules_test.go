@@ -154,3 +154,36 @@ func TestRules_TransactionRule_Apply_Bill(t *testing.T) {
 		t.Errorf("Bill wasn't identified")
 	}
 }
+
+func TestRules_TransactionRule_Bills(t *testing.T) {
+	rules := Rules{
+		Transactions: []TransactionRule{
+			TransactionRule{
+				Some:   []string{"check", "cashed"},
+				Amount: finance.NewCurrency(150000),
+				Bill: BillRule{
+					Description: "Townhouse Rent",
+					Day:         1,
+					Amount:      finance.NewCurrency(150000),
+				},
+			},
+			TransactionRule{
+				Some:   []string{"check", "cashed"},
+				Amount: finance.NewCurrency(150000),
+				Bill: BillRule{
+					Description: "Townhouse Rent",
+					Day:         1,
+					Amount:      finance.NewCurrency(150000),
+				},
+			},
+			TransactionRule{},
+			TransactionRule{},
+		},
+	}
+
+	bills := rules.Bills()
+
+	if len(bills.Rules) != 2 {
+		t.Error("Incorrect number of bills returned")
+	}
+}
