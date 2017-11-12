@@ -42,9 +42,11 @@ func abs(value int) int {
 // goal if you spend less on your bills than expected. It is pssible to have a higher
 // projected goal if you spend more on a bill. Variable bills such as an Electric
 // or Gas bill are a good reason why the projected value can change.
-func Bills(transactions finance.Transactions, bills rules.Bills) {
+func Bills(bills rules.Bills) {
 	fmt.Println("# Bills")
 	fmt.Println()
+
+	transactions := bills.Transactions
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Bill", "Pay Date", "Transaction Date", "Estimated Amount", "Actual Amount", "Need"})

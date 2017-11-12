@@ -181,7 +181,9 @@ func TestRules_TransactionRule_Bills(t *testing.T) {
 		},
 	}
 
-	bills := rules.Bills()
+	transactions := finance.Transactions{}
+
+	bills := rules.Bills(transactions)
 
 	if len(bills.Rules) != 2 {
 		t.Error("Incorrect number of bills returned")

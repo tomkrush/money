@@ -6,7 +6,8 @@ import (
 
 // Bills contains a list of bill rules
 type Bills struct {
-	Rules []TransactionRule
+	Rules        []TransactionRule
+	Transactions finance.Transactions
 }
 
 func (bills Bills) GoalAmount() finance.Currency {
