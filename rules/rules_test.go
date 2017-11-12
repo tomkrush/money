@@ -135,16 +135,20 @@ func TestRules_TransactionRule_Apply_Bill(t *testing.T) {
 	}
 
 	transactionRule := TransactionRule{
-		Some:    []string{"check", "cashed"},
-		Replace: "Townhouse Rent",
-		Amount:  finance.NewCurrency(150000),
+		Some:   []string{"check", "cashed"},
+		Amount: finance.NewCurrency(150000),
 		Bill: BillRule{
-			Day:    1,
-			Amount: finance.NewCurrency(150000),
+			Description: "Townhouse Rent",
+			Day:         1,
+			Amount:      finance.NewCurrency(150000),
 		},
 	}
 
 	transaction, _ = transactionRule.Apply(transaction)
+
+	if transaction.GetDescription() != "Townhouse Rent" {
+		t.Errorf("Transaction description Incorrect")
+	}
 
 	if transaction.Bill != true {
 		t.Errorf("Bill wasn't identified")

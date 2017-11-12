@@ -26,8 +26,9 @@ type TransactionRule struct {
 // are not actuall used once a bill is paid. The day and amount will be automatically
 // set to the actual transaction day and amount.
 type BillRule struct {
-	Day    int              `json:"day,omitempty"`
-	Amount finance.Currency `json:"amount,omitempty"`
+	Description string           `json:"description,omitempty"`
+	Day         int              `json:"day,omitempty"`
+	Amount      finance.Currency `json:"amount,omitempty"`
 }
 
 // CategoryRule applies additional transformations on top of category.
@@ -153,6 +154,7 @@ func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transac
 
 		if r.Bill.Day != 0 {
 			transaction.Bill = true
+			transaction.UserDescription = r.Bill.Description
 		}
 	}
 

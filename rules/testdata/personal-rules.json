@@ -48,11 +48,11 @@
         },
         {
             "contains": "GitHub",
-            "replace": "GitHub",
             "category": "Web",
             "bill": {
                 "day": 13,
-                "amount": 700
+                "amount": 700,
+                "description": "GitHub"             
             },
             "need": false
         }
