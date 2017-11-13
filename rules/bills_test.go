@@ -22,6 +22,8 @@ func TestRules_Bills(t *testing.T) {
 		},
 	}
 
+	bills.Calculate()
+
 	goalAmount := bills.GoalAmount()
 
 	if goalAmount.Amount != 1750 {

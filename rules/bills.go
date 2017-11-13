@@ -8,14 +8,22 @@ import (
 type Bills struct {
 	Rules        []TransactionRule
 	Transactions finance.Transactions
+	calculated   bool
+	goalAmount   finance.Currency
 }
 
-func (bills Bills) GoalAmount() finance.Currency {
-	amount := 0
+func (b *Bills) Calculate() {
+	if b.calculated == false {
+		amount := 0
 
-	for _, rule := range bills.Rules {
-		amount += rule.Bill.Amount.Amount
+		for _, rule := range b.Rules {
+			amount += rule.Bill.Amount.Amount
+		}
+
+		b.goalAmount = finance.NewCurrency(amount)
 	}
+}
 
-	return finance.NewCurrency(amount)
+func (b Bills) GoalAmount() finance.Currency {
+	return b.goalAmount
 }
