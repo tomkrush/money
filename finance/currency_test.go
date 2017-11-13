@@ -31,6 +31,28 @@ func TestCurrency_CentsToDollars(t *testing.T) {
 	}
 }
 
+func TestCurrency_Subtract(t *testing.T) {
+	firstAmount := NewCurrency(10)
+	secondAmount := NewCurrency(10)
+	expectedAmount := NewCurrency(0)
+	actualAmount := firstAmount.Subtract(secondAmount)
+
+	if actualAmount != expectedAmount {
+		t.Errorf("Currency subtract failed %d, %d", actualAmount.Amount, expectedAmount.Amount)
+	}
+}
+
+func TestCurrency_Add(t *testing.T) {
+	firstAmount := NewCurrency(10)
+	secondAmount := NewCurrency(10)
+	expectedAmount := NewCurrency(20)
+	actualAmount := firstAmount.Add(secondAmount)
+
+	if actualAmount != expectedAmount {
+		t.Errorf("Currency add failed %d, %d", actualAmount.Amount, expectedAmount.Amount)
+	}
+}
+
 func TestCurrency_UnmarshalJSON(t *testing.T) {
 	var c Currency
 

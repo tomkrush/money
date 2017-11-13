@@ -23,6 +23,14 @@ func NewCurrencyFromDollars(dollars string) Currency {
 	return currency
 }
 
+func (a Currency) Subtract(b Currency) Currency {
+	return NewCurrency(a.Amount - b.Amount)
+}
+
+func (a Currency) Add(b Currency) Currency {
+	return NewCurrency(a.Amount + b.Amount)
+}
+
 // FormatToDollars acts on the Current Type. This method outputs the currency
 // amount in dollars. This method prepends the amount with the dollar sign.
 func (c *Currency) FormatToDollars() string {
