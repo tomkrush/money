@@ -1,5 +1,7 @@
 {
-    "monthlyIncome": 3000,
+    "income": {
+        "amount": 150000
+    },
     "categories": [
         {
             "find": "Fast Food",

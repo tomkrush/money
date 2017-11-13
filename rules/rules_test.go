@@ -8,8 +8,8 @@ import (
 func TestPersonalRules_New(t *testing.T) {
 	p := New("testdata/personal-rules.json")
 
-	if p.MonthlyIncome != 3000 {
-		t.Error("Monthly Income incorrect")
+	if p.Income.Amount.Amount != 150000 {
+		t.Error("Income incorrect")
 	}
 
 	if len(p.Categories) == 0 {

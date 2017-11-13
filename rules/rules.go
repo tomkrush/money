@@ -38,12 +38,17 @@ type CategoryRule struct {
 	Some    []string `json:"some"`
 }
 
+// Income is amount of money that a family adds to their bank.
+type Income struct {
+	Amount finance.Currency `json:"amount"`
+}
+
 // Rules contain the structures required to personalize the transaction data
 // to the family needs.
 type Rules struct {
-	MonthlyIncome int               `json:"monthlyIncome"`
-	Categories    []CategoryRule    `json:"categories"`
-	Transactions  []TransactionRule `json:"transactions"`
+	Income       Income            `json:"income"`
+	Categories   []CategoryRule    `json:"categories"`
+	Transactions []TransactionRule `json:"transactions"`
 }
 
 // New create the rules from a json file
