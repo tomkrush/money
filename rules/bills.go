@@ -35,13 +35,13 @@ func (b *Bills) Calculate() {
 			transaction, ok := b.getTransaction(rule)
 
 			if ok {
-				actualAmount += abs(transaction.Amount.Amount)
-				projectedAmount += abs(transaction.Amount.Amount)
+				actualAmount -= abs(transaction.Amount.Amount)
+				projectedAmount -= abs(transaction.Amount.Amount)
 			} else {
-				projectedAmount += rule.Bill.Amount.Amount
+				projectedAmount -= rule.Bill.Amount.Amount
 			}
 
-			goalAmount += rule.Bill.Amount.Amount
+			goalAmount -= rule.Bill.Amount.Amount
 		}
 
 		b.goalAmount = finance.NewCurrency(goalAmount)

@@ -38,19 +38,19 @@ func TestRules_Bills(t *testing.T) {
 	projectedAmount := bills.ProjectedAmount()
 	remainingAmount := bills.RemainingAmount()
 
-	if goalAmount.Amount != 1750 {
+	if goalAmount.Amount != -1750 {
 		t.Error("Goal amount incorrect")
 	}
 
-	if actualAmount.Amount != 1200 {
-		t.Errorf("Actual amount incorrect %d, %d", actualAmount, 1200)
+	if actualAmount.Amount != -1200 {
+		t.Errorf("Actual amount incorrect %d, %d", actualAmount, -1200)
 	}
 
-	if projectedAmount.Amount != 1950 {
-		t.Errorf("Projected amount incorrect %d, %d", projectedAmount, 1950)
+	if projectedAmount.Amount != -1950 {
+		t.Errorf("Projected amount incorrect %d, %d", projectedAmount, -1950)
 	}
 
-	if remainingAmount.Amount != 750 {
-		t.Errorf("Remaining amount incorrect %d, %d", projectedAmount, 750)
+	if remainingAmount.Amount != -750 {
+		t.Errorf("Remaining amount incorrect %d, %d", projectedAmount, -750)
 	}
 }

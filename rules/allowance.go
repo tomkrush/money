@@ -8,7 +8,7 @@ type Allowance struct {
 }
 
 func (a Allowance) Monthly() finance.Currency {
-	remaining := a.Income.Amount.Subtract(a.Bills.ProjectedAmount())
+	remaining := a.Income.Amount.Add(a.Bills.ProjectedAmount())
 
 	return remaining
 }
