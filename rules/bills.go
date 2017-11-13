@@ -23,6 +23,8 @@ type Bills struct {
 	remainingAmount finance.Currency
 }
 
+// Calculate iterates over bill rules and transactions and internally holds
+// the results for future use.
 func (b *Bills) Calculate() {
 	if b.calculated == false {
 		goalAmount := 0
@@ -49,18 +51,25 @@ func (b *Bills) Calculate() {
 	}
 }
 
+// ProjectedAmount returns the amount of money that is going to be spent
+// this month based on the actual amount of money already spent on bills plus
+// the the remaining amount of unpaid bills.
 func (b Bills) ProjectedAmount() finance.Currency {
 	return b.projectedAmount
 }
 
+// RemainingAmount returns the amount of money that has yet to be paid to bills.
 func (b Bills) RemainingAmount() finance.Currency {
 	return b.remainingAmount
 }
 
+// GoalAmount returns the amount of money that will ideally be spent on bills
+// this month. This is calculated by adding up the expected bill amounts.
 func (b Bills) GoalAmount() finance.Currency {
 	return b.goalAmount
 }
 
+// ActualAmount returns the amount of money that has already been spent on bills.
 func (b Bills) ActualAmount() finance.Currency {
 	return b.actualAmount
 }
