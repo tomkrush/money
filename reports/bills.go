@@ -63,7 +63,6 @@ func Bills(bills rules.Bills) {
 		if ok {
 			actualAmount = transaction.Amount.FormatToDollars()
 			transactionDate = transaction.Date.Format("2006-01-02")
-		} else {
 		}
 
 		if rule.Need {
