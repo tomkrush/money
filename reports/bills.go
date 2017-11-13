@@ -54,8 +54,6 @@ func Bills(bills rules.Bills) {
 	table.SetCenterSeparator("|")
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
-	projectedTotalAmount := 0
-
 	for _, rule := range bills.Rules {
 		need := "No"
 		actualAmount := "–"
@@ -65,9 +63,7 @@ func Bills(bills rules.Bills) {
 		if ok {
 			actualAmount = transaction.Amount.FormatToDollars()
 			transactionDate = transaction.Date.Format("2006-01-02")
-			projectedTotalAmount += abs(transaction.Amount.Amount)
 		} else {
-			projectedTotalAmount += rule.Bill.Amount.Amount
 		}
 
 		if rule.Need {
@@ -90,13 +86,13 @@ func Bills(bills rules.Bills) {
 
 	estimatedTotalAmount := bills.GoalAmount()
 	actualAmount := bills.ActualAmount()
-	formattedProjectedAmount := finance.NewCurrency(projectedTotalAmount)
-	remainingAmount := finance.NewCurrency(projectedTotalAmount - actualAmount.Amount)
+	projectedAmount := bills.ProjectedAmount()
+	remainingAmount := bills.RemainingAmount()
 
 	fmt.Printf("\nGoal Amount: %s    Already Paid: %s    Projected Amount: %s    Remaining Amount: %s\n\n",
 		estimatedTotalAmount.FormatToDollars(),
 		actualAmount.FormatToDollars(),
-		formattedProjectedAmount.FormatToDollars(),
+		projectedAmount.FormatToDollars(),
 		remainingAmount.FormatToDollars(),
 	)
 
