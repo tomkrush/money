@@ -9,12 +9,14 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// Category is a list item
 type Category struct {
 	Category string
 	Amount   int
 	Need     bool
 }
 
+// CategoryList is a list of categories
 type CategoryList []Category
 
 func (list CategoryList) get(category string) (*Category, int) {
@@ -27,10 +29,17 @@ func (list CategoryList) get(category string) (*Category, int) {
 	return &Category{}, -1
 }
 
-func (p CategoryList) Len() int           { return len(p) }
-func (p CategoryList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
-func (p CategoryList) Less(i, j int) bool { return p[i].Amount < p[j].Amount }
+// Len returns the length of a category list
+func (list CategoryList) Len() int { return len(list) }
 
+// Swap swaps to category items
+func (list CategoryList) Swap(i, j int) { list[i], list[j] = list[j], list[i] }
+
+// Less compares category amounts to order them from largest to smallest
+func (list CategoryList) Less(i, j int) bool { return list[i].Amount < list[j].Amount }
+
+// Categories displays a formatted table of categories. This report is useful
+// for visualizing how transactions are grouped.
 func Categories(transactions finance.Transactions) {
 	fmt.Println("# Categories")
 	fmt.Println()

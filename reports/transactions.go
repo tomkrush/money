@@ -8,6 +8,8 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// Transactions displays a formatted table of transactions. This view is useful
+// for reviewing all changes to a bank account.
 func Transactions(transactions finance.Transactions) {
 	fmt.Println("# Personal Balance")
 	fmt.Println()
