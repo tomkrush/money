@@ -48,29 +48,34 @@ func (b *Bills) Calculate() {
 		b.actualAmount = finance.NewCurrency(actualAmount)
 		b.projectedAmount = finance.NewCurrency(projectedAmount)
 		b.remainingAmount = finance.NewCurrency(projectedAmount - actualAmount)
+		b.calculated = true
 	}
 }
 
 // ProjectedAmount returns the amount of money that is going to be spent
 // this month based on the actual amount of money already spent on bills plus
 // the the remaining amount of unpaid bills.
-func (b Bills) ProjectedAmount() finance.Currency {
+func (b *Bills) ProjectedAmount() finance.Currency {
+	b.Calculate()
 	return b.projectedAmount
 }
 
 // RemainingAmount returns the amount of money that has yet to be paid to bills.
-func (b Bills) RemainingAmount() finance.Currency {
+func (b *Bills) RemainingAmount() finance.Currency {
+	b.Calculate()
 	return b.remainingAmount
 }
 
 // GoalAmount returns the amount of money that will ideally be spent on bills
 // this month. This is calculated by adding up the expected bill amounts.
-func (b Bills) GoalAmount() finance.Currency {
+func (b *Bills) GoalAmount() finance.Currency {
+	b.Calculate()
 	return b.goalAmount
 }
 
 // ActualAmount returns the amount of money that has already been spent on bills.
-func (b Bills) ActualAmount() finance.Currency {
+func (b *Bills) ActualAmount() finance.Currency {
+	b.Calculate()
 	return b.actualAmount
 }
 
