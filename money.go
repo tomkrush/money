@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"money/importer"
+	"money/reports"
 	"money/rules"
 	"time"
 )
@@ -14,36 +15,38 @@ func main() {
 
 	flag.Parse()
 
-	rules := rules.New(*rulesPath)
+	transactionRules := rules.New(*rulesPath)
 	transactions, _ := importer.TransactionsCSV(*transactionsPath)
 
 	transactions.Sort()
 
-	transactions = rules.Apply(transactions)
+	transactions = transactionRules.Apply(transactions)
 
 	start, _ := time.Parse("2006-01-02", "2017-11-01")
 	end, _ := time.Parse("2006-01-02", "2017-11-30")
 
 	transactions = transactions.DateRange(start, end)
 
-	bills := rules.Bills(transactions)
+	bills := transactionRules.Bills(transactions)
 
 	// transactions = transactions.FilterByCategory("Uncategorized")
 	// reports.Transactions(transactions)
-	// reports.Bills(bills)
+	reports.Bills(bills)
 
-	other := transactions.TotalExpenses().Subtract(bills.ActualAmount())
-	income := rules.Income.Amount
+	income := transactionRules.Income
+
+	allowance := rules.Allowance(income, bills, transactions)
+
+	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
-	allowance := income.Add(other.Add(projectedAmount))
 	actualAmount := bills.ActualAmount()
 	sum := transactions.TotalExpenses()
 
 	fmt.Println("Sum: ", sum.FormatToDollars())
-	fmt.Println("Income: ", income.FormatToDollars())
+	fmt.Println("Income: ", income.Amount.FormatToDollars())
 	fmt.Println("Actual Bills: ", actualAmount.FormatToDollars())
 	fmt.Println("Projected Bills: ", projectedAmount.FormatToDollars())
-	fmt.Println("Other Expenses: ", other.FormatToDollars())
+	fmt.Println("Unplanned Expenses: ", unplannedExpense.FormatToDollars())
 
 	fmt.Printf("Allowance %s\n\n", allowance.FormatToDollars())
 
