@@ -43,7 +43,7 @@ func abs(value int) int {
 // projected goal if you spend more on a bill. Variable bills such as an Electric
 // or Gas bill are a good reason why the projected value can change.
 func Bills(bills rules.Bills) {
-	fmt.Println("# Bills")
+	fmt.Println("### Bills")
 	fmt.Println()
 
 	transactions := bills.Transactions

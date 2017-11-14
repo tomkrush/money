@@ -41,7 +41,7 @@ func (list CategoryList) Less(i, j int) bool { return list[i].Amount < list[j].A
 // Categories displays a formatted table of categories. This report is useful
 // for visualizing how transactions are grouped.
 func Categories(transactions finance.Transactions) {
-	fmt.Println("# Categories")
+	fmt.Println("### Categories")
 	fmt.Println()
 
 	table := tablewriter.NewWriter(os.Stdout)

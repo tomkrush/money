@@ -31,7 +31,6 @@ func main() {
 
 	// transactions = transactions.FilterByCategory("Uncategorized")
 	// reports.Transactions(transactions)
-	reports.Bills(bills)
 
 	income := transactionRules.Income
 
@@ -42,13 +41,18 @@ func main() {
 	actualAmount := bills.ActualAmount()
 	sum := transactions.TotalExpenses()
 
-	fmt.Println("Sum: ", sum.FormatToDollars())
-	fmt.Println("Income: ", income.Amount.FormatToDollars())
-	fmt.Println("Actual Bills: ", actualAmount.FormatToDollars())
-	fmt.Println("Projected Bills: ", projectedAmount.FormatToDollars())
-	fmt.Println("Unplanned Expenses: ", unplannedExpense.FormatToDollars())
+	fmt.Println("# Personal Finances")
+
+	fmt.Println("### Summary")
+	fmt.Println("- Sum: ", sum.FormatToDollars())
+	fmt.Println("- Income: ", income.Amount.FormatToDollars())
+	fmt.Println("- Actual Bills: ", actualAmount.FormatToDollars())
+	fmt.Println("- Projected Bills: ", projectedAmount.FormatToDollars())
+	fmt.Println("- Unplanned Expenses: ", unplannedExpense.FormatToDollars())
 
 	fmt.Printf("Allowance %s\n\n", allowance.FormatToDollars())
 
-	// reports.Categories(transactions)
+	reports.Bills(bills)
+
+	reports.Categories(transactions)
 }
