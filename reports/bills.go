@@ -5,7 +5,6 @@ import (
 	"money/finance"
 	"money/rules"
 	"os"
-	"strconv"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -46,38 +45,24 @@ func Bills(bills rules.Bills) {
 	fmt.Println("### Bills")
 	fmt.Println()
 
-	transactions := bills.Transactions
-
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Bill", "Pay Date", "Transaction Date", "Estimated Amount", "Actual Amount", "Need"})
+	table.SetHeader([]string{"Bill", "Day", "Amount", "Paid"})
 	table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
 	table.SetCenterSeparator("|")
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
-	for _, rule := range bills.Rules {
-		need := "No"
-		actualAmount := "–"
-		transaction, ok := getTransactionForBill(transactions, rule)
-		transactionDate := "–"
+	for _, bill := range bills.List() {
+		paid := "No"
 
-		if ok {
-			actualAmount = transaction.Amount.FormatToDollars()
-			transactionDate = transaction.Date.Format("2006-01-02")
+		if bill.Paid {
+			paid = "Yes"
 		}
-
-		if rule.Need {
-			need = "Yes"
-		}
-
-		day := strconv.FormatInt(int64(rule.Bill.Day), 10)
 
 		table.Append([]string{
-			rule.Bill.Description,
-			day,
-			transactionDate,
-			rule.Bill.Amount.FormatToDollars(),
-			actualAmount,
-			need,
+			bill.Description,
+			bill.Day,
+			bill.Amount,
+			paid,
 		})
 	}
 

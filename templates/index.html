@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>Family Finances</title>
+        <link rel="stylesheet" href="/css/app.css">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans|Vollkorn+SC" rel="stylesheet">
+    </head>
+    <body class="good">
+        <div class="stats">
+            <h1></h1>
+
+            <em>Last Refreshed {{.LastUpdated}}</em>
+            <h1>You can spend<br>{{.Allowance}} this month</h1>
+
+            <ul>
+                <li>You have <strong>{{.UnplannedExpenses}}</strong> in unplanned expenses</li>
+                
+                <li>You have <strong>{{.ProjectedBills}}</strong> this month in bills</li>
+                
+                <li>You will save <strong>{{.Savings}}</strong> this month</li>
+            </ul>
+        </div>
+        <div class="sheet">
+            <h3>Bills</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Bills}}
+                        {{if .Paid}}
+                            <tr class="expense">
+                        {{else}}
+                            <tr class="estimate">
+                        {{end}}
+                        <td>{{.Day}}</td>
+                        <td>{{.Description}}</td>
+                        <td>{{.Amount}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>    
+        </div>
+<!-- 
+        <div class="sheet">
+                <h3>Planned Expenses</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="expense">
+                            <td>1</td>
+                            <td>Groceries</td>
+                            <td>$-30.00</td>
+                        </tr>
+                        <tr class="expense">
+                            <td>7</td>                            
+                            <td>Groceries</td>
+                            <td>$-30.00</td>
+                        </tr>
+                        <tr class="estimate">
+                            <td>7</td>                            
+                            <td>Groceries</td>
+                            <td>$-30.00</td>
+                        </tr>
+                        <tr class="estimate">
+                            <td>14</td>                            
+                            <td>Gas</td>
+                            <td>$-15.00</td>
+                        </tr>
+                        <tr class="estimate">
+                            <td>15</td>                            
+                            <td>Savings</td>
+                            <td>$-600.00</td>
+                        </tr>
+                        <tr class="estimate">
+                            <td>14</td>                            
+                            <td>Groceries</td>
+                            <td>$-30.00</td>
+                        </tr>
+                        <tr class="estimate">
+                            <td>27</td>                            
+                            <td>Black Friday Shopping</td>
+                            <td>$-400.00</td>
+                        </tr>
+                    </tbody>
+                </table>    
+            </div> -->
+
+        <!-- <div class="sheet">
+        <h3>Categories</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>😀 Rent</td>
+                    <td>$-1000.00</td>
+                </tr>
+                <tr>
+                    <td>😡 Shopping</td>
+                    <td>$-75.61</td>
+                </tr>
+                <tr>
+                    <td>😀 Insurance</td>
+                    <td>$-156.18</td>
+                </tr>
+                <tr>
+                    <td>😡 Fast Food</td>
+                    <td>$-90.51</td>
+                </tr>
+                <tr>
+                    <td>😀 Groceries</td>
+                    <td>$-82.30</td>
+                </tr>
+                <tr>
+                    <td>😡 Restaurant</td>
+                    <td>$-50.38</td>
+                </tr>
+                <tr>
+                    <td>😡 Credit Card</td>
+                    <td>$-50.00</td>
+                </tr>
+                <tr>
+                    <td>😀 Gas</td>
+                    <td>$-44.98</td>
+                </tr>
+                <tr>
+                    <td>😀 Entertainment</td>
+                    <td>$-9.98</td>
+                </tr>
+            </tbody>
+        </table>
+        </div> -->
+        <em>Disclaimer: The financial data presented is only based on finalized transactions. All pending transactions are ignored.</em>
+    </body>
+</html>

@@ -3,20 +3,45 @@ package main
 import (
 	"flag"
 	"fmt"
+	"html/template"
+	"log"
 	"money/importer"
 	"money/reports"
 	"money/rules"
+	"net/http"
+	"os"
 	"time"
 )
 
-func main() {
-	transactionsPath := flag.String("path", "", "Import CSV file from specified path")
-	rulesPath := flag.String("rules", "", "Import json file of rules")
+type Path struct {
+	TransactionPath string
+	RulesPath       string
+}
 
-	flag.Parse()
+type Data struct {
+	LastUpdated       string
+	UnplannedExpenses string
+	Allowance         string
+	ProjectedBills    string
+	Savings           string
+	Bills             []rules.Bill
+}
 
-	transactionRules := rules.New(*rulesPath)
-	transactions, _ := importer.TransactionsCSV(*transactionsPath)
+func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path) {
+	transactionRules := rules.New(paths.RulesPath)
+	transactions, _ := importer.TransactionsCSV(paths.TransactionPath)
+
+	fileInfo, err := os.Stat(paths.TransactionPath)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lastUpdated := fileInfo.ModTime().Format("2006-01-02")
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	transactions.Sort()
 
@@ -29,30 +54,54 @@ func main() {
 
 	bills := transactionRules.Bills(transactions)
 
-	// transactions = transactions.FilterByCategory("Uncategorized")
-	// reports.Transactions(transactions)
-
 	income := transactionRules.Income
 
 	allowance := rules.Allowance(income, bills, transactions)
 
 	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
-	actualAmount := bills.ActualAmount()
-	sum := transactions.TotalExpenses()
-
-	fmt.Println("# Personal Finances")
-
-	fmt.Println("### Summary")
-	fmt.Println("- Sum: ", sum.FormatToDollars())
-	fmt.Println("- Income: ", income.Amount.FormatToDollars())
-	fmt.Println("- Actual Bills: ", actualAmount.FormatToDollars())
-	fmt.Println("- Projected Bills: ", projectedAmount.FormatToDollars())
-	fmt.Println("- Unplanned Expenses: ", unplannedExpense.FormatToDollars())
-
-	fmt.Printf("Allowance %s\n\n", allowance.FormatToDollars())
 
 	reports.Bills(bills)
 
-	reports.Categories(transactions)
+	data := Data{
+		LastUpdated:       lastUpdated,
+		UnplannedExpenses: unplannedExpense.FormatToDollars(),
+		Allowance:         allowance.FormatToDollars(),
+		ProjectedBills:    projectedAmount.FormatToDollars(),
+		Savings:           "N/A",
+		Bills:             bills.List(),
+	}
+
+	t, err := template.ParseFiles("templates/index.html")
+
+	err = t.Execute(writer, data) // merge.
+
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func main() {
+	transactionsPath := flag.String("path", "", "Import CSV file from specified path")
+	rulesPath := flag.String("rules", "", "Import json file of rules")
+
+	flag.Parse()
+
+	paths := Path{
+		TransactionPath: *transactionsPath,
+		RulesPath:       *rulesPath,
+	}
+
+	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+		indexHandler(writer, request, paths)
+	})
+
+	fileServer := http.StripPrefix("/css", http.FileServer(http.Dir("css")))
+	http.Handle("/css/", fileServer)
+
+	err := http.ListenAndServe(":9696", nil) // set listen port
+
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }

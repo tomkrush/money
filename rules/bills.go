@@ -2,6 +2,7 @@ package rules
 
 import (
 	"money/finance"
+	"strconv"
 )
 
 func abs(value int) int {
@@ -21,6 +22,14 @@ type Bills struct {
 	actualAmount    finance.Currency
 	projectedAmount finance.Currency
 	remainingAmount finance.Currency
+	bills           []Bill
+}
+
+type Bill struct {
+	Day         string
+	Amount      string
+	Paid        bool
+	Description string
 }
 
 // Calculate iterates over bill rules and transactions and internally holds
@@ -30,16 +39,29 @@ func (b *Bills) Calculate() {
 		goalAmount := 0
 		actualAmount := 0
 		projectedAmount := 0
+		var bills []Bill
 
 		for _, rule := range b.Rules {
 			transaction, ok := b.getTransaction(rule)
 
+			billedAmount := rule.Bill.Amount
+
 			if ok {
 				actualAmount -= abs(transaction.Amount.Amount)
 				projectedAmount -= abs(transaction.Amount.Amount)
+				billedAmount = transaction.Amount
 			} else {
 				projectedAmount -= rule.Bill.Amount.Amount
 			}
+
+			day := strconv.FormatInt(int64(rule.Bill.Day), 10)
+
+			bills = append(bills, Bill{
+				Description: rule.Bill.Description,
+				Day:         day,
+				Amount:      billedAmount.FormatToDollars(),
+				Paid:        ok,
+			})
 
 			goalAmount -= rule.Bill.Amount.Amount
 		}
@@ -48,8 +70,14 @@ func (b *Bills) Calculate() {
 		b.actualAmount = finance.NewCurrency(actualAmount)
 		b.projectedAmount = finance.NewCurrency(projectedAmount)
 		b.remainingAmount = finance.NewCurrency(projectedAmount - actualAmount)
+		b.bills = bills
 		b.calculated = true
 	}
+}
+
+func (b *Bills) List() []Bill {
+	b.Calculate()
+	return b.bills
 }
 
 // ProjectedAmount returns the amount of money that is going to be spent

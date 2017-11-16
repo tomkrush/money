@@ -9,6 +9,7 @@ func createBillRule(description string, amount int) TransactionRule {
 	return TransactionRule{
 		Bill: BillRule{
 			Description: description,
+			Day:         1,
 			Amount:      finance.NewCurrency(amount),
 		},
 	}
@@ -52,5 +53,39 @@ func TestRules_Bills(t *testing.T) {
 
 	if remainingAmount.Amount != -750 {
 		t.Errorf("Remaining amount incorrect %d, %d", projectedAmount, -750)
+	}
+}
+
+func TestRules_Bill(t *testing.T) {
+	bills := Bills{
+		Rules: []TransactionRule{
+			createBillRule("hello", 1000),
+		},
+		Transactions: finance.Transactions{
+			finance.Transaction{
+				Description: "hello",
+				Amount:      finance.NewCurrency(1200),
+			},
+		},
+	}
+
+	list := bills.List()
+
+	bill := list[0]
+
+	if bill.Description != "hello" {
+		t.Error("Description Incorrect")
+	}
+
+	if bill.Amount != "$12.00" {
+		t.Error("Amount Incorrect")
+	}
+
+	if bill.Paid == false {
+		t.Error("Should be paid, but isn't")
+	}
+
+	if bill.Day != "1" {
+		t.Error("Day is incorrect")
 	}
 }
