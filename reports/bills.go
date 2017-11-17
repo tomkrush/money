@@ -52,17 +52,11 @@ func Bills(bills rules.Bills) {
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	for _, bill := range bills.List() {
-		paid := "No"
-
-		if bill.Paid {
-			paid = "Yes"
-		}
-
 		table.Append([]string{
 			bill.Description,
 			bill.Day,
 			bill.Amount,
-			paid,
+			bill.Paid,
 		})
 	}
 
