@@ -28,8 +28,8 @@ type Bills struct {
 type Bill struct {
 	Day         string
 	Amount      string
-	Paid        bool
 	Description string
+	Paid        string
 }
 
 // Calculate iterates over bill rules and transactions and internally holds
@@ -45,11 +45,13 @@ func (b *Bills) Calculate() {
 			transaction, ok := b.getTransaction(rule)
 
 			billedAmount := rule.Bill.Amount
+			paid := "estimate"
 
 			if ok {
 				actualAmount -= abs(transaction.Amount.Amount)
 				projectedAmount -= abs(transaction.Amount.Amount)
 				billedAmount = transaction.Amount
+				paid = "expense"
 			} else {
 				projectedAmount -= rule.Bill.Amount.Amount
 			}
@@ -60,7 +62,7 @@ func (b *Bills) Calculate() {
 				Description: rule.Bill.Description,
 				Day:         day,
 				Amount:      billedAmount.FormatToDollars(),
-				Paid:        ok,
+				Paid:        paid,
 			})
 
 			goalAmount -= rule.Bill.Amount.Amount

@@ -35,15 +35,11 @@
                 </thead>
                 <tbody>
                     {{range .Bills}}
-                        {{if .Paid}}
-                            <tr class="expense">
-                        {{else}}
-                            <tr class="estimate">
-                        {{end}}
-                        <td>{{.Day}}</td>
-                        <td>{{.Description}}</td>
-                        <td>{{.Amount}}</td>
-                    </tr>
+                        <tr class="{{.Paid}}">
+                            <td>{{.Day}}</td>
+                            <td>{{.Description}}</td>
+                            <td>{{.Amount}}</td>
+                        </tr>
                     {{end}}
                 </tbody>
             </table>    

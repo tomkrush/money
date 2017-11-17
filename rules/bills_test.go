@@ -81,8 +81,8 @@ func TestRules_Bill(t *testing.T) {
 		t.Error("Amount Incorrect")
 	}
 
-	if bill.Paid == false {
-		t.Error("Should be paid, but isn't")
+	if bill.Paid != "expense" {
+		t.Error("Should be expense")
 	}
 
 	if bill.Day != "1" {
