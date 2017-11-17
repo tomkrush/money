@@ -25,6 +25,8 @@ type Bills struct {
 	bills           []Bill
 }
 
+// Bill holds the summarized info for a user to understand if the bill has
+// been paid, and if so what amount.
 type Bill struct {
 	Day         string
 	Amount      string
@@ -77,6 +79,8 @@ func (b *Bills) Calculate() {
 	}
 }
 
+// List returns a list of bills that either have been or haven't been paid.
+// Depending on paid status, the bill will have estimated or actual values.
 func (b *Bills) List() []Bill {
 	b.Calculate()
 	return b.bills

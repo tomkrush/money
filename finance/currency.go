@@ -23,12 +23,14 @@ func NewCurrencyFromDollars(dollars string) Currency {
 	return currency
 }
 
-func (a Currency) Subtract(b Currency) Currency {
-	return NewCurrency(a.Amount - b.Amount)
+// Subtract returns the difference between two currencies
+func (c Currency) Subtract(b Currency) Currency {
+	return NewCurrency(c.Amount - b.Amount)
 }
 
-func (a Currency) Add(b Currency) Currency {
-	return NewCurrency(a.Amount + b.Amount)
+// Add returns the sum of two currencies
+func (c Currency) Add(b Currency) Currency {
+	return NewCurrency(c.Amount + b.Amount)
 }
 
 // FormatToDollars acts on the Current Type. This method outputs the currency
