@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"log"
 	"money/importer"
-	"money/reports"
 	"money/rules"
 	"net/http"
 	"os"
@@ -60,8 +59,6 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 
 	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
-
-	reports.Bills(bills)
 
 	data := Data{
 		LastUpdated:       lastUpdated,
