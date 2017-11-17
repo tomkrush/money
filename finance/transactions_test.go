@@ -84,6 +84,75 @@ func TestTransactions_Sum(t *testing.T) {
 	}
 }
 
+func TestTransactions_TotalExpenses(t *testing.T) {
+	tests := []struct {
+		name         string
+		transactions Transactions
+		want         Currency
+	}{
+		{
+			"TotalExpenses of transactions should be -500",
+			Transactions{
+				Transaction{Amount: NewCurrency(-500)},
+				Transaction{Amount: NewCurrency(500)},
+			},
+			NewCurrency(-500),
+		},
+		{
+			"TotalExpenses of transactions should be 0",
+			Transactions{
+				Transaction{Amount: NewCurrency(500)},
+				Transaction{Amount: NewCurrency(500)},
+			},
+			NewCurrency(0),
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.transactions.TotalExpenses(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Transactions.TotalExpenses() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTransactions_FilterByCategory(t *testing.T) {
+	tests := []struct {
+		name         string
+		category     string
+		transactions Transactions
+		want         int
+	}{
+		{
+			"FilterByCategory of transactions should return nothing",
+			"Gas",
+			Transactions{
+				Transaction{Amount: NewCurrency(-500), Category: "Shopping"},
+				Transaction{Amount: NewCurrency(500), Category: "Income"},
+			},
+			0,
+		},
+		{
+			"FilterByCategory of transactions should return 1 transaction",
+			"Gas",
+			Transactions{
+				Transaction{Amount: NewCurrency(-500), Category: "Gas"},
+				Transaction{Amount: NewCurrency(500), Category: "Income"},
+			},
+			1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.transactions.FilterByCategory(tt.category); len(got) != tt.want {
+				t.Errorf("Transactions.FilterByCategory() = %v, want %v", len(got), tt.want)
+			}
+		})
+	}
+}
+
 func TestTransactions_StartingBalance(t *testing.T) {
 	tests := []struct {
 		name         string

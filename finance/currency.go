@@ -62,9 +62,9 @@ func (c *Currency) FromDollars(dollars string) {
 // the interal structure of this type.
 func (c *Currency) UnmarshalJSON(data []byte) error {
 	var amount int
-	if err := json.Unmarshal(data, &amount); err != nil {
-		return err
-	}
+
+	_ = json.Unmarshal(data, &amount)
+
 	c.Amount = amount
 	return nil
 }
