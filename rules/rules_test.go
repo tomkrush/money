@@ -80,6 +80,28 @@ func TestRules_TransactionRule_Apply_FindReplace(t *testing.T) {
 	}
 }
 
+func TestRules_Rules_Apply(t *testing.T) {
+	rules := Rules{
+		Transactions: []TransactionRule{
+			TransactionRule{
+				FindReplace: "BP",
+			},
+		},
+	}
+
+	transactions := rules.Apply(finance.Transactions{
+		finance.Transaction{Description: "BP Gas Station"},
+	})
+
+	transaction := transactions[0]
+	actual := transaction.GetDescription()
+	expects := "BP"
+
+	if transaction.GetDescription() != expects {
+		t.Errorf("Rules failed to apply description to transaction %s %s", expects, actual)
+	}
+}
+
 func TestRules_TransactionRule_Apply_Remove(t *testing.T) {
 	transaction := finance.Transaction{Description: "BP Gas Station"}
 
