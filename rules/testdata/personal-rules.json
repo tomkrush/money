@@ -1,7 +1,4 @@
 {
-    "income": {
-        "amount": 150000
-    },
     "categories": [
         {
             "find": "Fast Food",
@@ -15,6 +12,16 @@
         }
     ],
     "transactions": [
+        {
+            "contains": "my job",
+            "category": "Income",
+            "income": {
+                "description": "My Job Income",
+                "frequency": 2,
+                "amount": 75000
+            },
+            "need": true
+        },
         {
             "contains": "Jewel",
             "replace": "Jewel Osco",

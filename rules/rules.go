@@ -18,6 +18,7 @@ type TransactionRule struct {
 	Some        []string         `json:"some,omitempty"`
 	Amount      finance.Currency `json:"amount,omitempty"`
 	Bill        BillRule         `json:"bill,omitempty"`
+	Income      Paycheck         `json:"income,omitempty"`
 }
 
 // BillRule describes the transaction bills rules.
@@ -41,7 +42,6 @@ type CategoryRule struct {
 // Rules contain the structures required to personalize the transaction data
 // to the family needs.
 type Rules struct {
-	Income       Income            `json:"income"`
 	Categories   []CategoryRule    `json:"categories"`
 	Transactions []TransactionRule `json:"transactions"`
 }
@@ -155,6 +155,11 @@ func (r TransactionRule) Apply(transaction finance.Transaction) (finance.Transac
 		if r.Bill.Day != 0 {
 			transaction.Bill = true
 			transaction.UserDescription = r.Bill.Description
+		}
+
+		if r.Income.Frequency != 0 {
+			transaction.Income = true
+			transaction.UserDescription = r.Income.Description
 		}
 	}
 

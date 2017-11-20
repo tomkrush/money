@@ -23,6 +23,7 @@ type Transaction struct {
 	Category        string
 	Need            bool
 	Bill            bool
+	Income          bool
 }
 
 // GetDescription will return the user description if available, otherwise

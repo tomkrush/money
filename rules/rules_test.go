@@ -8,10 +8,6 @@ import (
 func TestPersonalRules_New(t *testing.T) {
 	p := New("testdata/personal-rules.json")
 
-	if p.Income.Amount.Amount != 150000 {
-		t.Error("Income incorrect")
-	}
-
 	if len(p.Categories) == 0 {
 		t.Error("No categories imported")
 	}
@@ -147,6 +143,32 @@ func TestRules_TransactionRule_Apply_SomeAmount(t *testing.T) {
 
 	if transaction.GetDescription() == "Townhouse Rent" && matched {
 		t.Errorf("Description should not have applied")
+	}
+}
+
+func TestRules_TransactionRule_Income(t *testing.T) {
+	transaction := finance.Transaction{
+		Description: "My Work",
+		Amount:      finance.NewCurrency(150000),
+	}
+
+	transactionRule := TransactionRule{
+		Contains: "Work",
+		Income: Paycheck{
+			Description: "Work Check",
+			Frequency:   2,
+			Amount:      finance.NewCurrency(150000),
+		},
+	}
+
+	transaction, _ = transactionRule.Apply(transaction)
+
+	if transaction.GetDescription() != "Work Check" {
+		t.Errorf("Transaction description incorrect %s", transaction.GetDescription())
+	}
+
+	if transaction.Income != true {
+		t.Errorf("Income wasn't identified")
 	}
 }
 

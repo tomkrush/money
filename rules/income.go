@@ -1,8 +1,13 @@
 package rules
 
-import "money/finance"
+import (
+	"money/finance"
+)
 
-// Income is amount of money that a family adds to their bank.
-type Income struct {
-	Amount finance.Currency `json:"amount"`
+// Paycheck is amount of money that a family adds to their bank.
+type Paycheck struct {
+	Amount      finance.Currency `json:"amount"`
+	Frequency   int              `json:"frequency"`
+	Description string           `json:"description"`
+}
 }
