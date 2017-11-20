@@ -53,9 +53,9 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 
 	bills := transactionRules.Bills(transactions)
 
-	income := transactionRules.Income
+	income := transactionRules.TotalIncome(transactions)
 
-	allowance := rules.Allowance(income, bills, transactions)
+	allowance := rules.Allowance(income.ProjectedAmount, bills, transactions)
 
 	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
