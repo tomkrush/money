@@ -2,22 +2,11 @@ package reports
 
 import (
 	"fmt"
-	"money/finance"
 	"money/rules"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
 )
-
-func getTransactionForBill(transactions finance.Transactions, rule rules.TransactionRule) (finance.Transaction, bool) {
-	for _, transaction := range transactions {
-		if transaction.GetDescription() == rule.Bill.Description {
-			return transaction, true
-		}
-	}
-
-	return finance.Transaction{}, false
-}
 
 func abs(value int) int {
 	if value < 0 {

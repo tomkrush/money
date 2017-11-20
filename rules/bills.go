@@ -112,13 +112,3 @@ func (b *Bills) ActualAmount() finance.Currency {
 	b.Calculate()
 	return b.actualAmount
 }
-
-func (b *Bills) getTransaction(rule TransactionRule) (finance.Transaction, bool) {
-	for _, transaction := range b.Transactions {
-		if transaction.GetDescription() == rule.Bill.Description {
-			return transaction, true
-		}
-	}
-
-	return finance.Transaction{}, false
-}
