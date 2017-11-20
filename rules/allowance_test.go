@@ -6,9 +6,7 @@ import (
 )
 
 func TestAllowance_IncomeOnly(t *testing.T) {
-	income := Income{
-		Amount: finance.NewCurrency(100),
-	}
+	income := finance.NewCurrency(100)
 
 	bills := Bills{}
 	transactions := finance.Transactions{}
@@ -21,9 +19,7 @@ func TestAllowance_IncomeOnly(t *testing.T) {
 }
 
 func TestAllowance_Bills(t *testing.T) {
-	income := Income{
-		Amount: finance.NewCurrency(10000),
-	}
+	income := finance.NewCurrency(10000)
 
 	transactions := finance.Transactions{
 		finance.Transaction{
