@@ -44,7 +44,7 @@ func (b *Bills) Calculate() {
 		var bills []Bill
 
 		for _, rule := range b.Rules {
-			transaction, ok := b.getTransaction(rule)
+			transaction, ok := b.Transactions.GetByDescription(rule.Bill.Description)
 
 			billedAmount := rule.Bill.Amount
 			paid := "estimate"

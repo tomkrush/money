@@ -34,6 +34,51 @@ func TestTransactions_DateRange(t *testing.T) {
 	}
 }
 
+func TestTransactions_GetByDescription(t *testing.T) {
+	transactions := Transactions{
+		Transaction{Description: "Test"},
+		Transaction{Description: "Test 1"},
+		Transaction{Description: "Test 2"},
+		Transaction{Description: "Test 3"},
+	}
+
+	transaction, ok := transactions.GetByDescription("Test")
+
+	if ok == false && transaction.GetDescription() != "Test" {
+		t.Error("Transaction not found by description")
+	}
+}
+
+func TestTransactions_GetByDescriptionFail(t *testing.T) {
+	transactions := Transactions{
+		Transaction{Description: "Test"},
+		Transaction{Description: "Test 1"},
+		Transaction{Description: "Test 2"},
+		Transaction{Description: "Test 3"},
+	}
+
+	_, ok := transactions.GetByDescription("FooBar")
+
+	if ok == true {
+		t.Error("Transaction should not have been found by description")
+	}
+}
+
+func TestTransactions_GetAllByDescription(t *testing.T) {
+	transactions := Transactions{
+		Transaction{Description: "Test"},
+		Transaction{Description: "Test"},
+		Transaction{Description: "Test 2"},
+		Transaction{Description: "Test 3"},
+	}
+
+	transactions = transactions.GetAllByDescription("Test")
+
+	if len(transactions) != 2 {
+		t.Errorf("Transactions not found by description Expected: %d, Actual: %d", 2, len(transactions))
+	}
+}
+
 func TestTransactions_Sum(t *testing.T) {
 	tests := []struct {
 		name         string
