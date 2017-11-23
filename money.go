@@ -22,6 +22,7 @@ type Data struct {
 	UnplannedExpenses string
 	Allowance         string
 	ProjectedBills    string
+	RemainingBills    string
 	Savings           string
 	Bills             []rules.Bill
 }
@@ -59,12 +60,14 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 
 	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
+	remainingAmount := bills.RemainingAmount()
 
 	data := Data{
 		LastUpdated:       lastUpdated,
 		UnplannedExpenses: unplannedExpense.FormatToDollars(),
 		Allowance:         allowance.FormatToDollars(),
 		ProjectedBills:    projectedAmount.FormatToDollars(),
+		RemainingBills:    remainingAmount.FormatToDollars(),
 		Savings:           "N/A",
 		Bills:             bills.List(),
 	}
