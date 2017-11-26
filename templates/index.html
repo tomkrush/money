@@ -97,7 +97,7 @@
                 </table>    
             </div> -->
 
-        <!-- <div class="sheet">
+        <div class="sheet">
         <h3>Categories</h3>
         
         <table>
@@ -108,45 +108,15 @@
                 </tr>
             </thead>
             <tbody>
+                {{range .Categories}}                    
                 <tr>
-                    <td>😀 Rent</td>
-                    <td>$-1000.00</td>
+                    <td>{{.Category}}</td>
+                    <td>{{.Amount.FormatToDollars}}</td>
                 </tr>
-                <tr>
-                    <td>😡 Shopping</td>
-                    <td>$-75.61</td>
-                </tr>
-                <tr>
-                    <td>😀 Insurance</td>
-                    <td>$-156.18</td>
-                </tr>
-                <tr>
-                    <td>😡 Fast Food</td>
-                    <td>$-90.51</td>
-                </tr>
-                <tr>
-                    <td>😀 Groceries</td>
-                    <td>$-82.30</td>
-                </tr>
-                <tr>
-                    <td>😡 Restaurant</td>
-                    <td>$-50.38</td>
-                </tr>
-                <tr>
-                    <td>😡 Credit Card</td>
-                    <td>$-50.00</td>
-                </tr>
-                <tr>
-                    <td>😀 Gas</td>
-                    <td>$-44.98</td>
-                </tr>
-                <tr>
-                    <td>😀 Entertainment</td>
-                    <td>$-9.98</td>
-                </tr>
+                {{end}}
             </tbody>
         </table>
-        </div> -->
+        </div>
         <em>Disclaimer: The financial data presented is only based on finalized transactions. All pending transactions are ignored.</em>
     </body>
 </html>

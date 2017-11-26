@@ -24,6 +24,7 @@ type Data struct {
 	ProjectedBills    string
 	RemainingBills    string
 	Savings           string
+	Categories        rules.CategoryList
 	Bills             []rules.Bill
 }
 
@@ -68,6 +69,7 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 		Allowance:         allowance.FormatToDollars(),
 		ProjectedBills:    projectedAmount.FormatToDollars(),
 		RemainingBills:    remainingAmount.FormatToDollars(),
+		Categories:        rules.GetCategories(transactions),
 		Savings:           "N/A",
 		Bills:             bills.List(),
 	}
