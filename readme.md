@@ -1,3 +1,5 @@
+![Travis CI](https://travis-ci.org/tomkrush/money.svg?branch=master)
+
 ## Overview
 
 The money program is designed to help families with their finances. At the moment, this program only displays a summary of the current months financial history. The CSV parser right now only works with Capital One 360 CSV files. It may work with other csv files, but this has not been tested.
