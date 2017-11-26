@@ -1,6 +1,6 @@
 package rules
 
-import "money/finance"
+import "github.com/tomkrush/money/finance"
 
 // UnplannedExpenses returns the total amount of money that has been spent
 // that isn't a bill or planned transaction.

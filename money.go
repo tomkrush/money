@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"html/template"
 	"log"
-	"money/importer"
-	"money/rules"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/tomkrush/money/importer"
+	"github.com/tomkrush/money/rules"
 )
 
 type Path struct {

@@ -1,6 +1,6 @@
 package rules
 
-import "money/finance"
+import "github.com/tomkrush/money/finance"
 
 // Allowance is calculated based on the (total income + projected bill total
 // + all other expenses)

@@ -1,8 +1,9 @@
 package rules
 
 import (
-	"money/finance"
 	"testing"
+
+	"github.com/tomkrush/money/finance"
 )
 
 func TestPersonalRules_New(t *testing.T) {

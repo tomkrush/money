@@ -1,7 +1,7 @@
 package rules
 
 import (
-	"money/finance"
+	"github.com/tomkrush/money/finance"
 	"strconv"
 )
 

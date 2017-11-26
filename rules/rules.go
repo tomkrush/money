@@ -3,8 +3,9 @@ package rules
 import (
 	"encoding/json"
 	"io/ioutil"
-	"money/finance"
 	"strings"
+
+	"github.com/tomkrush/money/finance"
 )
 
 // TransactionRule describes the filters and transformations for a transaction.

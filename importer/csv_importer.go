@@ -3,10 +3,11 @@ package importer
 import (
 	"encoding/csv"
 	"io"
-	"money/finance"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/tomkrush/money/finance"
 )
 
 // ImportTransactionsCSV accepts a file path be imported as Transaction types.
