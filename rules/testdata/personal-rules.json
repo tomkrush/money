@@ -1,16 +1,4 @@
 {
-    "categories": [
-        {
-            "find": "Fast Food",
-            "replace": "Fast Food (Tom)",
-            "some": [
-                "Naperville",
-                "Aurora",
-                "Warrenville",
-                "Carol Stream"
-            ]
-        }
-    ],
     "transactions": [
         {
             "contains": "my job",

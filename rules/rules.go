@@ -42,7 +42,6 @@ type CategoryRule struct {
 // Rules contain the structures required to personalize the transaction data
 // to the family needs.
 type Rules struct {
-	Categories   []CategoryRule    `json:"categories"`
 	Transactions []TransactionRule `json:"transactions"`
 }
 
