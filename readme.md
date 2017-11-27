@@ -1,4 +1,4 @@
-![Travis CI](https://travis-ci.org/tomkrush/money.svg?branch=master)
+[![Travis CI](https://travis-ci.org/tomkrush/money.svg?branch=master)](https://travis-ci.org/tomkrush/money)
 [![Documentation](https://godoc.org/github.com/tomkrush/money?status.svg)](https://godoc.org/github.com/tomkrush/money)
 [![codecov](https://codecov.io/gh/tomkrush/money/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkrush/money)
 
