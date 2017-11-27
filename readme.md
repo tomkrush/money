@@ -1,4 +1,6 @@
 ![Travis CI](https://travis-ci.org/tomkrush/money.svg?branch=master)
+[![Documentation](https://godoc.org/github.com/tomkrush/money?status.svg)](https://godoc.org/github.com/tomkrush/money)
+[![Coverage Status](https://coveralls.io/repos/github/tomkrush/money/badge.svg?branch=master)](https://coveralls.io/github/tomkrush/money?branch=master)
 
 ## Overview
 
