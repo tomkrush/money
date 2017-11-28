@@ -249,6 +249,35 @@ func TestRules_Rules_PlannedTransactions(t *testing.T) {
 	}
 }
 
+func TestRules_Rules_PaidClass(t *testing.T) {
+	tests := []struct {
+		name           string
+		plannedExpense PlannedExpense
+		want           string
+	}{
+		{
+			"Not Paid",
+			PlannedExpense{},
+			"",
+		},
+		{
+			"Paid",
+			createPlannedExpense("Some Purchase", 2000, "2017-11-10"),
+			"expense",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			class := tt.plannedExpense.PaidClass()
+
+			if class != tt.want {
+				t.Errorf("Class returned %v, want %v", class, tt.want)
+			}
+		})
+	}
+}
+
 func createPlannedExpense(description string, amount int, date string) PlannedExpense {
 	paid, _ := time.Parse("2006-01-02", date)
 
