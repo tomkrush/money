@@ -1,4 +1,11 @@
 {
+    "plannedExpenses": [
+        {
+            "description": "Some purchase",
+            "amount": 2500,
+            "paid": "2017-11-22T15:04:05-07:00"
+        }
+    ],
     "transactions": [
         {
             "contains": "my job",

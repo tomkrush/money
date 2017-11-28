@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"strings"
+	"time"
 
 	"github.com/tomkrush/money/finance"
 )
@@ -33,17 +34,56 @@ type BillRule struct {
 	Amount      finance.Currency `json:"amount,omitempty"`
 }
 
-// CategoryRule applies additional transformations on top of category.
-type CategoryRule struct {
-	Find    string   `json:"find"`
-	Replace string   `json:"replace"`
-	Some    []string `json:"some"`
+// PlannedExpense allows for planned expenses to be figured into reports
+type PlannedExpense struct {
+	Description string           `json:"description,omitempty"`
+	Amount      finance.Currency `json:"amount,omitempty"`
+	Paid        time.Time        `json:"paid,omitempty"`
+}
+
+func (pe PlannedExpense) PaidClass() string {
+	if pe.Paid.IsZero() == false {
+		return "expense"
+	}
+
+	return ""
+}
+
+// PlannedExpenses is a slice of PlannedExpense
+type PlannedExpenses []PlannedExpense
+
+func (pe PlannedExpenses) InMonth(t time.Time) PlannedExpenses {
+	expenses := PlannedExpenses{}
+
+	for _, e := range pe {
+		if e.Paid.IsZero() {
+			expenses = append(expenses, e)
+		} else if e.Paid.Month() == t.Month() && e.Paid.Year() == t.Year() {
+			expenses = append(expenses, e)
+		}
+	}
+
+	return expenses
+}
+
+// TotalExpenses is the total amount of planned expenses
+func (pe PlannedExpenses) TotalExpenses() finance.Currency {
+	total := 0
+
+	for _, plannedExpense := range pe {
+		if plannedExpense.Paid.IsZero() {
+			total += plannedExpense.Amount.Amount
+		}
+	}
+
+	return finance.NewCurrency(total)
 }
 
 // Rules contain the structures required to personalize the transaction data
 // to the family needs.
 type Rules struct {
-	Transactions []TransactionRule `json:"transactions"`
+	PlannedExpenses PlannedExpenses   `json:"plannedExpenses"`
+	Transactions    []TransactionRule `json:"transactions"`
 }
 
 // New create the rules from a json file

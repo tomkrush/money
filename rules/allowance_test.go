@@ -1,8 +1,9 @@
 package rules
 
 import (
-	"github.com/tomkrush/money/finance"
 	"testing"
+
+	"github.com/tomkrush/money/finance"
 )
 
 func TestAllowance_IncomeOnly(t *testing.T) {
@@ -10,11 +11,12 @@ func TestAllowance_IncomeOnly(t *testing.T) {
 
 	bills := Bills{}
 	transactions := finance.Transactions{}
+	plannedExpenses := finance.NewCurrency(-10)
 
-	allowance := Allowance(income, bills, transactions)
+	allowance := Allowance(income, plannedExpenses, bills, transactions)
 
-	if allowance.Amount != 100 {
-		t.Errorf("Allowance incorrect %d %d", allowance.Amount, 100)
+	if allowance.Amount != 90 {
+		t.Errorf("Allowance incorrect %d %d", allowance.Amount, 90)
 	}
 }
 
@@ -32,6 +34,8 @@ func TestAllowance_Bills(t *testing.T) {
 		},
 	}
 
+	plannedExpenses := finance.NewCurrency(0)
+
 	bills := Bills{
 		Rules: []TransactionRule{
 			createBillRule("hello", 1000),
@@ -40,7 +44,7 @@ func TestAllowance_Bills(t *testing.T) {
 		Transactions: transactions,
 	}
 
-	allowance := Allowance(income, bills, transactions)
+	allowance := Allowance(income, plannedExpenses, bills, transactions)
 
 	if allowance.Amount != 6550 {
 		t.Errorf("Allowance incorrect %d %d", allowance.Amount, 6550)

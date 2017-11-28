@@ -17,12 +17,12 @@
 
             <ul>
                 <li>You have <strong>{{.UnplannedExpenses}}</strong> in expenses</li>
+            
+                <li>You have <strong>{{.RemainingPlanned}}</strong> remaining this month in planned expenses</li>                
                 
                 <li>You will pay <strong>{{.ProjectedBills}}</strong> this month in bills</li>
-            
+                            
                 <li>You have <strong>{{.RemainingBills}}</strong> unpaid this month in bills</li>
-                
-                <li>You will save <strong>{{.Savings}}</strong> this month</li>
             </ul>
         </div>
         <div class="sheet">
@@ -46,56 +46,26 @@
                 </tbody>
             </table>    
         </div>
-<!-- 
         <div class="sheet">
-                <h3>Planned Expenses</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="expense">
-                            <td>1</td>
-                            <td>Groceries</td>
-                            <td>$-30.00</td>
-                        </tr>
-                        <tr class="expense">
-                            <td>7</td>                            
-                            <td>Groceries</td>
-                            <td>$-30.00</td>
-                        </tr>
-                        <tr class="estimate">
-                            <td>7</td>                            
-                            <td>Groceries</td>
-                            <td>$-30.00</td>
-                        </tr>
-                        <tr class="estimate">
-                            <td>14</td>                            
-                            <td>Gas</td>
-                            <td>$-15.00</td>
-                        </tr>
-                        <tr class="estimate">
-                            <td>15</td>                            
-                            <td>Savings</td>
-                            <td>$-600.00</td>
-                        </tr>
-                        <tr class="estimate">
-                            <td>14</td>                            
-                            <td>Groceries</td>
-                            <td>$-30.00</td>
-                        </tr>
-                        <tr class="estimate">
-                            <td>27</td>                            
-                            <td>Black Friday Shopping</td>
-                            <td>$-400.00</td>
-                        </tr>
-                    </tbody>
-                </table>    
-            </div> -->
+            <h3>Planned Expenses</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .PlannedExpenses}}                    
+                    <tr class="{{.PaidClass}}">
+                        <td>&mdash;</td>
+                        <td>{{.Description}}</td>
+                        <td>{{.Amount.FormatToDollars}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>    
+        </div>
 
         <div class="sheet">
         <h3>Categories</h3>

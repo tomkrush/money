@@ -2,6 +2,7 @@ package rules
 
 import (
 	"testing"
+	"time"
 
 	"github.com/tomkrush/money/finance"
 )
@@ -228,5 +229,72 @@ func TestRules_TransactionRule_Bills(t *testing.T) {
 
 	if len(bills.Rules) != 2 {
 		t.Error("Incorrect number of bills returned")
+	}
+}
+
+func TestRules_Rules_PlannedTransactions(t *testing.T) {
+
+	plannedExpenses := PlannedExpenses{
+		PlannedExpense{
+			Description: "Some Purchase",
+			Amount:      finance.NewCurrency(3000),
+		},
+		createPlannedExpense("Some Purchase", 2000, "2017-11-10"),
+	}
+
+	actual := plannedExpenses.TotalExpenses()
+
+	if actual.Amount != 3000 {
+		t.Errorf("Planned Expenses should is %d, wants, %d", actual.Amount, 2000)
+	}
+}
+
+func createPlannedExpense(description string, amount int, date string) PlannedExpense {
+	paid, _ := time.Parse("2006-01-02", date)
+
+	return PlannedExpense{
+		Description: description,
+		Amount:      finance.NewCurrency(amount),
+		Paid:        paid,
+	}
+}
+
+func TestRules_Rules_PlannedTransactions_InMonth(t *testing.T) {
+	tests := []struct {
+		name            string
+		plannedExpenses PlannedExpenses
+		want            int
+	}{
+		{
+			"Add up categories",
+			PlannedExpenses{
+				createPlannedExpense("Some Purchase #1", 2500, "2017-10-01"),
+				createPlannedExpense("Some Purchase #2", 2500, "2017-11-10"),
+				PlannedExpense{Description: "Some Purchase #3", Amount: finance.NewCurrency(500)},
+			},
+			500,
+		},
+		{
+			"Add up categories",
+			PlannedExpenses{
+				createPlannedExpense("Some Purchase #1", 2500, "2017-10-01"),
+				PlannedExpense{Description: "Some Purchase #2", Amount: finance.NewCurrency(1500)},
+				PlannedExpense{Description: "Some Purchase #3", Amount: finance.NewCurrency(500)},
+			},
+			2000,
+		},
+	}
+
+	monthTimestamp, _ := time.Parse("2006-01-02", "2017-11-01")
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			plannedInMonth := tt.plannedExpenses.InMonth(monthTimestamp)
+			total := plannedInMonth.TotalExpenses()
+
+			if total.Amount != tt.want {
+				t.Errorf("Total expenses returned %v, want %v", total.Amount, tt.want)
+			}
+		})
 	}
 }

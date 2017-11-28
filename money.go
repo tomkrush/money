@@ -21,10 +21,12 @@ type Path struct {
 type Data struct {
 	LastUpdated       string
 	UnplannedExpenses string
+	RemainingPlanned  string
 	Allowance         string
 	ProjectedBills    string
 	RemainingBills    string
 	Savings           string
+	PlannedExpenses   rules.PlannedExpenses
 	Categories        rules.CategoryList
 	Bills             []rules.Bill
 }
@@ -56,9 +58,12 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 
 	bills := transactionRules.Bills(transactions)
 
+	plannedExpenses := transactionRules.PlannedExpenses.InMonth(start)
+	remainingPlanned := plannedExpenses.TotalExpenses()
+
 	income := transactionRules.TotalIncome(transactions)
 
-	allowance := rules.Allowance(income.ProjectedAmount, bills, transactions)
+	allowance := rules.Allowance(income.ProjectedAmount, remainingPlanned, bills, transactions)
 
 	unplannedExpense := rules.UnplannedExpenses(bills, transactions)
 	projectedAmount := bills.ProjectedAmount()
@@ -67,6 +72,8 @@ func indexHandler(writer http.ResponseWriter, request *http.Request, paths Path)
 	data := Data{
 		LastUpdated:       lastUpdated,
 		UnplannedExpenses: unplannedExpense.FormatToDollars(),
+		RemainingPlanned:  remainingPlanned.FormatToDollars(),
+		PlannedExpenses:   plannedExpenses,
 		Allowance:         allowance.FormatToDollars(),
 		ProjectedBills:    projectedAmount.FormatToDollars(),
 		RemainingBills:    remainingAmount.FormatToDollars(),
