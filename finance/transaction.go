@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Transaction is the withdrawl and deposit of a currency from a
+// Transaction is the withdrawal and deposit of a currency from a
 // bank account on a specific date.
 type Transaction struct {
 	BankID          string

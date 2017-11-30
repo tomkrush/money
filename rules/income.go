@@ -17,7 +17,7 @@ type Paycheck struct {
 //   the current month.
 // - Actual amount is the amount of income already received for the current month.
 // - Remaining amount is the amount of income that is still expected
-// - Unplanned amount is the amount of tncome that has been recieved that wasn't
+// - Unplanned amount is the amount of tncome that has been received that wasn't
 //   expected this month.
 type IncomeSummary struct {
 	ProjectedAmount finance.Currency
@@ -51,7 +51,7 @@ func (r Rules) TotalIncome(transactions finance.Transactions) IncomeSummary {
 
 	// Iterate over all transactions and check if income rule exists.
 	// If rule does exist, than the income is planned. Add the amount to the
-	// projected amount and add the amount to the actual amount recieved.
+	// projected amount and add the amount to the actual amount received.
 	// If rule doesn't exist, than the income is unplanned. Add the amount to the
 	// projected total and also add the amount of the unplanned amount.
 	for _, transaction := range transactions {
