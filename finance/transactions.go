@@ -106,7 +106,7 @@ func (t Transactions) DateRange(start time.Time, end time.Time) Transactions {
 	return found
 }
 
-// GetTransactions returns the first transaction with a matching description
+// GetAllByDescription returns the all transactions with a matching description
 func (t Transactions) GetAllByDescription(description string) Transactions {
 	foundTransactions := Transactions{}
 
@@ -119,7 +119,7 @@ func (t Transactions) GetAllByDescription(description string) Transactions {
 	return foundTransactions
 }
 
-// GetTransaction returns the first transaction with a matching description
+// GetByDescription returns the first transaction with a matching description
 func (t Transactions) GetByDescription(description string) (Transaction, bool) {
 	foundTransactions := t.GetAllByDescription(description)
 

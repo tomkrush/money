@@ -1,8 +1,9 @@
 package rules
 
 import (
-	"github.com/tomkrush/money/finance"
 	"sort"
+
+	"github.com/tomkrush/money/finance"
 )
 
 // Category is a list item
@@ -36,6 +37,7 @@ func (list CategoryList) Less(i, j int) bool {
 	return list[i].Amount.Amount > list[j].Amount.Amount
 }
 
+// GetCategories returns a list of categories
 func GetCategories(transactions finance.Transactions) CategoryList {
 	categories := CategoryList{}
 

@@ -10,7 +10,7 @@ import (
 	"github.com/tomkrush/money/finance"
 )
 
-// ImportTransactionsCSV accepts a file path be imported as Transaction types.
+// TransactionsCSV accepts a file path be imported as Transaction types.
 func TransactionsCSV(path string) (finance.Transactions, error) {
 	file, err := os.Open(path)
 
